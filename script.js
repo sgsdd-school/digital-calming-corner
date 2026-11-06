@@ -97,6 +97,50 @@ chatBackButton.addEventListener("click", showStartScreen);
 activitiesStartButton.addEventListener("click", showActivitiesHub);
 calmingCornerStartButton.addEventListener("click", showCalmingCorner);
 
+// Read the main Self-Regulation introduction aloud using the device's speech voice.
+const calmingIntroAudioButton = document.getElementById("calming-intro-audio-button");
+let calmingIntroSpeaking = false;
+
+function stopCalmingIntroSpeech() {
+    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+    calmingIntroSpeaking = false;
+    if (calmingIntroAudioButton) {
+        calmingIntroAudioButton.innerHTML = '<span aria-hidden="true">🔊</span>';
+        calmingIntroAudioButton.setAttribute("aria-label", "Listen to the introduction");
+        calmingIntroAudioButton.title = "Listen";
+        calmingIntroAudioButton.setAttribute("aria-pressed", "false");
+    }
+}
+
+if (calmingIntroAudioButton) {
+    calmingIntroAudioButton.addEventListener("click", function () {
+        if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
+            calmingIntroAudioButton.setAttribute("aria-label", "Audio is not available on this device");
+            return;
+        }
+        if (calmingIntroSpeaking) {
+            stopCalmingIntroSpeech();
+            return;
+        }
+        window.speechSynthesis.cancel();
+        const message = new SpeechSynthesisUtterance(
+            "Self-Regulation. How are you feeling right now? Choose the zone that feels closest to you."
+        );
+        message.lang = "en-GB";
+        message.rate = 0.88;
+        message.pitch = 1;
+        message.onend = stopCalmingIntroSpeech;
+        message.onerror = stopCalmingIntroSpeech;
+        calmingIntroSpeaking = true;
+        calmingIntroAudioButton.innerHTML = '<span aria-hidden="true">⏹</span>';
+        calmingIntroAudioButton.setAttribute("aria-label", "Stop listening");
+        calmingIntroAudioButton.title = "Stop";
+        calmingIntroAudioButton.setAttribute("aria-pressed", "true");
+        window.speechSynthesis.speak(message);
+    });
+}
+
+
 const zoneFeelingExamples = {
     blue: { title: "Blue Zone", feelings: ["Sad", "Sick", "Tired", "Bored", "Disappointed"] },
     green: { title: "Green Zone", feelings: ["Happy", "Calm", "Focused", "Relaxed"] },
