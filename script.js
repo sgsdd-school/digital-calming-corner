@@ -133,11 +133,11 @@ function showZoneFeelings(zone) {
 
         if (zone === "blue") {
             const blueIllustrations = {
-                "Sad": "assets/feelings/blue-sad.svg",
-                "Tired": "assets/feelings/blue-tired.svg",
-                "Sick": "assets/feelings/blue-sick.svg",
-                "Bored": "assets/feelings/blue-bored.svg",
-                "Disappointed": "assets/feelings/blue-disappointed.svg"
+                "Sad": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F622.svg",
+                "Tired": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F62A.svg",
+                "Sick": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F912.svg",
+                "Bored": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F612.svg",
+                "Disappointed": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F61E.svg"
             };
             const illustration = document.createElement("img");
             illustration.className = "zone-feeling-image";
