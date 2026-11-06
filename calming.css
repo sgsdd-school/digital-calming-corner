@@ -189,3 +189,7 @@
 /* Keep the zone strategy screen focused on its heading and choices. */
 .blue-support:has(.strategy-instruction-audio):not(.strategy-detail-view) .blue-support-progress{display:none!important}
 .blue-support:has(.strategy-instruction-audio):not(.strategy-detail-view) .blue-support-question{display:none!important}
+
+
+/* The hidden attribute must always win over the grid layout display rule. */
+.zones-grid[hidden] { display: none !important; }
