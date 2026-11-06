@@ -81,3 +81,60 @@
 .zone-feelings-back:hover,.zone-feelings-back:focus-visible{background:#dfe6ee;outline:2px solid #526d88;outline-offset:2px}
 .zone-feelings h3{padding:0 48px}
 @media(max-width:700px){.zone-feelings-back{width:40px;height:40px;top:-5px}.zone-feelings h3{padding:0 44px}}
+
+
+/* Green, Yellow and Red feeling choices use the same large touch cards as Blue. */
+.zone-feelings.green-zone-feelings .zone-feelings-list,
+.zone-feelings.yellow-zone-feelings .zone-feelings-list,
+.zone-feelings.red-zone-feelings .zone-feelings-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+
+.zone-feelings.green-zone-feelings .zone-feeling-option,
+.zone-feelings.yellow-zone-feelings .zone-feeling-option,
+.zone-feelings.red-zone-feelings .zone-feeling-option{min-height:190px;padding:12px 10px;gap:8px;border-width:2px;border-radius:18px;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+
+.zone-feelings.green-zone-feelings .zone-feeling-option{background:#DDF0DF;border-color:#B8D9BF;color:#245B35}
+.zone-feelings.green-zone-feelings .zone-feeling-option:hover,
+.zone-feelings.green-zone-feelings .zone-feeling-option:focus-visible{background:#C8E8CE;border-color:#38734A;outline:3px solid #70A77A;outline-offset:2px}
+
+.zone-feelings.yellow-zone-feelings .zone-feeling-option{background:#FFF0C9;border-color:#F0D88F;color:#755516}
+.zone-feelings.yellow-zone-feelings .zone-feeling-option:hover,
+.zone-feelings.yellow-zone-feelings .zone-feeling-option:focus-visible{background:#FFE6A8;border-color:#C59628;outline:3px solid #D5AC48;outline-offset:2px}
+
+.zone-feelings.red-zone-feelings .zone-feeling-option{background:#F9DEDE;border-color:#EDBDBD;color:#843B3B}
+.zone-feelings.red-zone-feelings .zone-feeling-option:hover,
+.zone-feelings.red-zone-feelings .zone-feeling-option:focus-visible{background:#F5CCCC;border-color:#B94A48;outline:3px solid #D47B78;outline-offset:2px}
+
+.zone-feelings.green-zone-feelings .zone-feeling-emoji,
+.zone-feelings.yellow-zone-feelings .zone-feeling-emoji,
+.zone-feelings.red-zone-feelings .zone-feeling-emoji{font-size:52px;line-height:1.2}
+.zone-feelings.green-zone-feelings .zone-feeling-label,
+.zone-feelings.yellow-zone-feelings .zone-feeling-label,
+.zone-feelings.red-zone-feelings .zone-feeling-label{font-size:20px;font-weight:700;line-height:1.2}
+
+/* The Not Sure pathway uses large, calm grey activity cards. */
+.unsure-support .blue-support-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.unsure-support .blue-support-option{min-height:118px;padding:16px 12px;display:flex;align-items:center;justify-content:center;text-align:center;background:#EEF1F5;border:2px solid #D8DEE7;border-radius:16px;color:#39465A;font-size:17px;line-height:1.35;font-weight:700}
+.unsure-support .blue-support-option:hover,
+.unsure-support .blue-support-option:focus-visible{background:#E2E7EE;border-color:#8794A5;outline:3px solid #B7C0CC;outline-offset:2px}
+
+@media (min-width:900px) and (orientation:landscape){
+ .zone-feelings.green-zone-feelings .zone-feelings-list,
+ .zone-feelings.yellow-zone-feelings .zone-feelings-list,
+ .zone-feelings.red-zone-feelings .zone-feelings-list{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:700px){
+ .zone-feelings.green-zone-feelings .zone-feelings-list,
+ .zone-feelings.yellow-zone-feelings .zone-feelings-list,
+ .zone-feelings.red-zone-feelings .zone-feelings-list{gap:10px}
+ .zone-feelings.green-zone-feelings .zone-feeling-option,
+ .zone-feelings.yellow-zone-feelings .zone-feeling-option,
+ .zone-feelings.red-zone-feelings .zone-feeling-option{min-height:165px;padding:10px 7px}
+ .zone-feelings.green-zone-feelings .zone-feeling-emoji,
+ .zone-feelings.yellow-zone-feelings .zone-feeling-emoji,
+ .zone-feelings.red-zone-feelings .zone-feeling-emoji{font-size:46px}
+ .zone-feelings.green-zone-feelings .zone-feeling-label,
+ .zone-feelings.yellow-zone-feelings .zone-feeling-label,
+ .zone-feelings.red-zone-feelings .zone-feeling-label{font-size:18px}
+ .unsure-support .blue-support-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .unsure-support .blue-support-option{min-height:100px;padding:12px 8px;font-size:15px}
+}
