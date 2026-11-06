@@ -165,3 +165,14 @@
  .unsure-support .unsure-card{min-height:130px!important}
  .unsure-support .unsure-card .zone-feeling-image{height:82px!important}
 }
+
+
+/* Audio assistance for the main Self-Regulation introduction. */
+.calming-intro-audio{display:flex;align-items:center;justify-content:center;gap:12px;max-width:560px;margin:0 auto}
+.calming-intro-copy{display:flex;flex-direction:column;align-items:center;gap:5px}
+.calming-intro-copy p{margin:0;font-size:19px;font-weight:700}
+.calming-intro-copy span{color:#52606d;font-size:14px}
+.speech-button{flex:0 0 auto;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#eef1f5;color:#26364a;font-size:21px;cursor:pointer;touch-action:manipulation}
+.speech-button:hover,.speech-button:focus-visible{background:#dfe6ee;outline:2px solid #526d88;outline-offset:2px}
+.speech-button[aria-pressed="true"]{background:#dce7f1}
+@media(max-width:700px){.calming-intro-audio{gap:9px}.calming-intro-copy p{font-size:17px}.calming-intro-copy span{font-size:13px}.speech-button{width:42px;height:42px}}
