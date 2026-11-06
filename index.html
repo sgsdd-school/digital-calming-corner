@@ -3,7 +3,7 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Self-Regulation</title>
+ <title>Self-Regulation Corner</title>
  <link rel="stylesheet" href="style.css">
  <link rel="stylesheet" href="calming.css">
  <link rel="stylesheet" href="teaching.css">
@@ -13,17 +13,12 @@
 </head>
 <body>
  <div class="chat-container">
-  <header class="chat-header">
-   <span class="heart-logo" aria-hidden="true">♥</span>
-   <div><h1>Self-Regulation</h1><small>A space to notice feelings and explore helpful tools.</small></div>
-
-  </header>
   <main id="start-screen" class="start-screen" hidden>
    <div class="start-message"><div class="message bot-message"><strong>GeorgeBot</strong><p>Hi! I'm GeorgeBot 🤖</p><p>What would you like to do today?</p></div></div>
    <div class="start-options">
     <button id="ask-george-button" class="start-option" type="button"><span class="start-option-icon">💬</span><span class="start-option-title">Ask George</span><span class="start-option-description">Ask a Computing question</span></button>
     <button id="activities-start-button" class="start-option" type="button"><span class="start-option-icon">🚀</span><span class="start-option-title">Activities</span><span class="start-option-description">Explore Computing activities</span></button>
-    <button id="calming-corner-start-button" class="start-option calming-start-option" type="button"><span class="start-option-icon">💙💚💛❤️</span><span class="start-option-title">Self-Regulation</span><span class="start-option-description">Explore your feelings</span></button>
+    <button id="calming-corner-start-button" class="start-option calming-start-option" type="button"><span class="start-option-icon">💙💚💛❤️</span><span class="start-option-title">Self-Regulation Corner</span><span class="start-option-description">Explore your feelings</span></button>
    </div>
   </main>
   <main id="activities-hub" class="activities-hub" hidden>
@@ -41,7 +36,7 @@
    <button id="back-to-start-button" class="back-to-start-button" type="button">← Back</button>
   </main>
   <main id="calming-corner" class="calming-corner">
-   <div class="calming-header"><h2>💚 Self-Regulation</h2><div class="calming-intro-audio"><div class="calming-intro-copy"><p>How are you feeling right now?</p><span>Choose the zone that feels closest to you.</span></div><button id="calming-intro-audio-button" class="speech-button" type="button" aria-label="Listen to the introduction" title="Listen"><span aria-hidden="true">🔊</span></button></div></div>
+   <div class="calming-header"><div class="calming-intro-audio"><div class="calming-intro-copy"><p>How are you feeling right now?</p><span>Choose the zone that feels closest to you.</span></div><button id="calming-intro-audio-button" class="speech-button" type="button" aria-label="Listen to the introduction" title="Listen"><span aria-hidden="true">🔊</span></button></div></div>
    <div class="zones-grid" aria-label="Choose how you are feeling">
     <button class="zone-card zone-blue" type="button" data-zone="blue" aria-pressed="false"><strong>BLUE ZONE</strong><span>Low energy</span><span>Low alertness</span><small>Sad · Sick · Tired · Bored</small></button>
     <button class="zone-card zone-green" type="button" data-zone="green" aria-pressed="false"><strong>GREEN ZONE</strong><span>Just right</span><span>Calm &amp; focused</span><small>Happy · Calm · Focused · Relaxed</small></button>
