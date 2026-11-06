@@ -52,5 +52,8 @@
 .zone-mix-note{max-width:680px;margin:0 auto 14px;padding:11px 14px;border-radius:11px;background:#f4f6f8;color:#445365;text-align:center;font-size:13px;line-height:1.5}.unsure-support{background:#f5f5f8;border-color:#dfe2e8}.unsure-support h3{color:#39465a}.unsure-support .blue-support-progress{color:#657184}
 
 /* Keep the zone prompt on the first screen only. */
-.calming-header.compact p,.calming-header.compact span{display:none}
-.calming-header.compact{margin-bottom:12px}
+.calming-header.compact{display:none}
+.zone-feelings.green-zone-feelings h3{display:none}
+.zone-feelings.green-zone-feelings .zone-feeling-option{background:#DDF0DF;border:1px solid #b8d9bf;color:#245b35}
+.zone-feelings.green-zone-feelings .zone-feeling-option:hover,.zone-feelings.green-zone-feelings .zone-feeling-option:focus-visible{background:#c8e8ce;border-color:#38734A;outline:2px solid #38734A;outline-offset:2px}
+.zone-feelings.green-zone-feelings .zone-feeling-emoji{color:#38734A}
