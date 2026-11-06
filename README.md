@@ -1,2 +1,2 @@
-# Self-Regulation
+# Self-Regulation Corner
 A digital emotional wellbeing and self-regulation space for primary school students.
