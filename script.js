@@ -305,7 +305,7 @@ backToZonesButton.addEventListener("click", function() {
     });
     const zonesGrid = document.querySelector(".zones-grid");
     zonesGrid.hidden = false;
-    zonesGrid.style.display = "grid";
+    zonesGrid.style.removeProperty("display");
     document.querySelector(".calming-header").classList.remove("compact");
     zoneCards.forEach(card => card.setAttribute("aria-pressed", "false"));
 });
