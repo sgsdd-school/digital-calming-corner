@@ -317,7 +317,14 @@ greenSupportBack.addEventListener("click", function() {
 });
 document.getElementById("yellow-support-back").addEventListener("click",()=>{yellowSupport.hidden=true;zoneFeelings.hidden=false;});
 document.getElementById("red-support-back").addEventListener("click",()=>{redSupport.hidden=true;zoneFeelings.hidden=false;});
-document.getElementById("unsure-support-back").addEventListener("click",()=>{unsureSupport.hidden=true;document.querySelector(".zones-grid").hidden=false;document.querySelector(".calming-header").classList.remove("compact");});
+const unsureSupportBack = document.getElementById("unsure-support-back");
+if (unsureSupportBack && unsureSupport) {
+    unsureSupportBack.addEventListener("click", () => {
+        unsureSupport.hidden = true;
+        document.querySelector(".zones-grid").hidden = false;
+        document.querySelector(".calming-header").classList.remove("compact");
+    });
+}
 
 backToStartButton.addEventListener("click", showStartScreen);
 
@@ -1125,6 +1132,7 @@ function showZoneStrategies(zone, feeling) {
     zoneFeelings.hidden = true;
     [blueSupport, greenSupport, yellowSupport, redSupport].forEach(section => section.hidden = true);
     config.section.hidden = false;
+    config.section.classList.remove("strategy-detail-view");
     config.progress.textContent = "";
     config.title.textContent = config.heading;
     config.question.textContent = "";
@@ -1150,6 +1158,7 @@ function showZoneStrategies(zone, feeling) {
         button.className = "blue-support-option";
         button.textContent = icon + " " + label;
         button.addEventListener("click", function() {
+            config.section.classList.add("strategy-detail-view");
             config.progress.textContent = "A strategy to try";
             config.title.textContent = label;
             config.question.textContent = instruction;
