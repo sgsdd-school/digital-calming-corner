@@ -234,7 +234,17 @@ const zoneFeelingExamples = {
 function showZoneFeelings(zone) {
     const details = zoneFeelingExamples[zone];
     if (!details) return;
-    document.querySelector(".zones-grid").hidden = true;
+
+    // Treat every zone selection as a clean screen transition. This prevents
+    // previously rendered feeling/strategy panels from remaining in layout.
+    const zonesGrid = document.querySelector(".zones-grid");
+    zonesGrid.hidden = true;
+    zonesGrid.style.removeProperty("display");
+    [blueSupport, greenSupport, yellowSupport, redSupport, unsureSupport].forEach(section => {
+        if (section) section.hidden = true;
+    });
+    zoneFeelings.hidden = true;
+    zoneFeelings.style.removeProperty("display");
     document.querySelector(".calming-header").classList.add("compact");
     zoneFeelings.classList.toggle("green-zone-feelings", zone === "green");
     zoneFeelings.classList.toggle("blue-zone-feelings", zone === "blue");
@@ -306,6 +316,8 @@ backToZonesButton.addEventListener("click", function() {
     const zonesGrid = document.querySelector(".zones-grid");
     zonesGrid.hidden = false;
     zonesGrid.style.removeProperty("display");
+    zoneFeelingsList.replaceChildren();
+    zoneFeelings.classList.remove("green-zone-feelings", "blue-zone-feelings", "yellow-zone-feelings", "red-zone-feelings");
     document.querySelector(".calming-header").classList.remove("compact");
     zoneCards.forEach(card => card.setAttribute("aria-pressed", "false"));
 });
