@@ -309,16 +309,18 @@ backToZonesButton.addEventListener("click", function() {
     document.querySelector(".calming-header").classList.remove("compact");
     zoneCards.forEach(card => card.setAttribute("aria-pressed", "false"));
 });
-blueSupportBack.addEventListener("click", function() {
-    blueSupport.hidden = true;
+function handleStrategyScreenBack(section, zone, feeling) {
+    if (section.classList.contains("strategy-detail-view")) {
+        showZoneStrategies(zone, feeling);
+        return;
+    }
+    section.hidden = true;
     zoneFeelings.hidden = false;
-});
-greenSupportBack.addEventListener("click", function() {
-    greenSupport.hidden = true;
-    zoneFeelings.hidden = false;
-});
-document.getElementById("yellow-support-back").addEventListener("click",()=>{yellowSupport.hidden=true;zoneFeelings.hidden=false;});
-document.getElementById("red-support-back").addEventListener("click",()=>{redSupport.hidden=true;zoneFeelings.hidden=false;});
+}
+blueSupportBack.addEventListener("click", () => handleStrategyScreenBack(blueSupport, "blue", "Sad"));
+greenSupportBack.addEventListener("click", () => handleStrategyScreenBack(greenSupport, "green", "Focused"));
+document.getElementById("yellow-support-back").addEventListener("click", () => handleStrategyScreenBack(yellowSupport, "yellow", "Worried"));
+document.getElementById("red-support-back").addEventListener("click", () => handleStrategyScreenBack(redSupport, "red", "Angry"));
 const unsureSupportBack = document.getElementById("unsure-support-back");
 if (unsureSupportBack && unsureSupport) {
     unsureSupportBack.addEventListener("click", () => {
@@ -1171,14 +1173,7 @@ function showZoneStrategies(zone, feeling) {
             config.question.textContent = instruction;
             config.result.hidden = true;
             config.options.replaceChildren();
-            const back = document.createElement("button");
-            back.type = "button";
-            back.className = "blue-support-option";
-            back.textContent = "← Back to strategies";
-            back.addEventListener("click", function() {
-                showZoneStrategies(zone, feeling);
-            });
-            config.options.appendChild(back);
+
         });
         config.options.appendChild(button);
     });
