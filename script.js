@@ -1141,6 +1141,34 @@ const zoneStrategySets = {
     }
 };
 
+const strategyIllustrations = {
+    "Take five deep breaths": "1F9D8",
+    "Say how I feel in calm words": "1F4AC",
+    "Have a drink of water": "1F6B0",
+    "Go for a walk": "1F6B6",
+    "Take a break in a quiet place": "1F6CB",
+    "Use a fidget or calm-down jar": "1F9E9",
+    "Blow bubbles": "1FAE7",
+    "Read or listen to a story": "1F4D6",
+    "Focus on my work": "1F3AF",
+    "Listen carefully to the teacher": "1F442",
+    "Share my thoughts with the class": "1F5E3",
+    "Ask questions": "2753",
+    "Help a friend or classmate": "1F91D",
+    "Share what I have learnt with the class": "1F4A1"
+};
+
+function createStrategyIllustration(label, className) {
+    const image = document.createElement("img");
+    image.className = className;
+    image.src = "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/" +
+        (strategyIllustrations[label] || "1F4AD") + ".svg";
+    image.alt = "";
+    image.setAttribute("aria-hidden", "true");
+    image.draggable = false;
+    return image;
+}
+
 function showZoneStrategies(zone, feeling) {
     const config = zoneStrategySets[zone];
     if (!config) return;
@@ -1172,16 +1200,24 @@ function showZoneStrategies(zone, feeling) {
     config.result.hidden = true;
     config.result.replaceChildren();
     config.options.replaceChildren();
+    const previousDetailIllustration = config.section.querySelector(".strategy-detail-illustration");
+    if (previousDetailIllustration) previousDetailIllustration.remove();
 
     config.strategies.forEach(([icon, label, instruction]) => {
         const button = document.createElement("button");
         button.type = "button";
-        button.className = "blue-support-option";
-        button.textContent = icon + " " + label;
+        button.className = "blue-support-option strategy-option";
+        button.appendChild(createStrategyIllustration(label, "strategy-option-image"));
+        const optionLabel = document.createElement("span");
+        optionLabel.className = "strategy-option-label";
+        optionLabel.textContent = label;
+        button.appendChild(optionLabel);
         button.addEventListener("click", function() {
             config.section.classList.add("strategy-detail-view");
             config.progress.textContent = "A strategy to try";
             config.title.textContent = label;
+            const detailIllustration = createStrategyIllustration(label, "strategy-detail-illustration");
+            config.question.insertAdjacentElement("beforebegin", detailIllustration);
             config.question.textContent = instruction;
             config.result.hidden = true;
             config.options.replaceChildren();
