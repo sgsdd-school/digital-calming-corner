@@ -10,7 +10,6 @@ const calmingCornerStartButton = document.getElementById("calming-corner-start-b
 const calmingCorner = document.getElementById("calming-corner");
 const calmingBackButton = document.getElementById("calming-back-button");
 const zoneCards = document.querySelectorAll(".zone-card");
-const zoneSelectionMessage = document.getElementById("zone-selection-message");
 const zoneFeelings = document.getElementById("zone-feelings");
 const zoneFeelingsTitle = document.getElementById("zone-feelings-title");
 const zoneFeelingsList = document.getElementById("zone-feelings-list");
@@ -91,7 +90,6 @@ function showCalmingCorner() {
     redSupport.hidden = true;
     unsureSupport.hidden = true;
     resetBlueSupport();
-    zoneSelectionMessage.textContent = "There is no right or wrong answer.";
 }
 
 askGeorgeButton.addEventListener("click", showChat);
@@ -111,7 +109,7 @@ function showZoneFeelings(zone) {
     const details = zoneFeelingExamples[zone];
     if (!details) return;
     document.querySelector(".zones-grid").hidden = true;
-    zoneSelectionMessage.textContent = "";
+    document.querySelector(".calming-header").classList.add("compact");
     zoneFeelingsTitle.textContent = details.title + " — how are you feeling?";
     zoneFeelingsList.innerHTML = "";
 
@@ -173,7 +171,7 @@ backToZonesButton.addEventListener("click", function() {
     redSupport.hidden = true;
     unsureSupport.hidden = true;
     document.querySelector(".zones-grid").hidden = false;
-    zoneSelectionMessage.textContent = "There is no right or wrong answer.";
+    document.querySelector(".calming-header").classList.remove("compact");
 });
 blueSupportBack.addEventListener("click", function() {
     blueSupport.hidden = true;
@@ -185,7 +183,7 @@ greenSupportBack.addEventListener("click", function() {
 });
 document.getElementById("yellow-support-back").addEventListener("click",()=>{yellowSupport.hidden=true;zoneFeelings.hidden=false;});
 document.getElementById("red-support-back").addEventListener("click",()=>{redSupport.hidden=true;zoneFeelings.hidden=false;});
-document.getElementById("unsure-support-back").addEventListener("click",()=>{unsureSupport.hidden=true;document.querySelector(".zones-grid").hidden=false;zoneSelectionMessage.textContent="There is no right or wrong answer.";});
+document.getElementById("unsure-support-back").addEventListener("click",()=>{unsureSupport.hidden=true;document.querySelector(".zones-grid").hidden=false;document.querySelector(".calming-header").classList.remove("compact");});
 document.getElementById("unsure-human-connection").addEventListener("click",()=>showHumanConnection(unsureTitle,unsureQuestion,unsureResult,unsureOptions));
 
 backToStartButton.addEventListener("click", showStartScreen);
