@@ -184,3 +184,8 @@
 .instruction-audio-button{width:38px;height:38px;font-size:18px}
 .zone-feelings.green-zone-feelings .zone-feelings-back{position:static;margin:0 auto 8px 0;top:auto;left:auto}
 .zone-feelings.green-zone-feelings h3{padding:0}
+
+
+/* Keep the zone strategy screen focused on its heading and choices. */
+.blue-support-progress{display:none!important}
+.blue-support:has(.strategy-instruction-audio) .blue-support-question{display:none!important}
