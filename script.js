@@ -1125,7 +1125,8 @@ function showZoneStrategies(zone, feeling) {
     config.progress.textContent = "Choose one strategy";
     config.title.textContent = config.heading;
     config.question.textContent = "Choose one thing you would like to try.";
-    config.question.insertAdjacentElement("afterend", config.question.parentElement.querySelector(".strategy-instruction-audio") || document.createElement("span"));
+    const previousInstructionAudio = config.section.querySelector(".strategy-instruction-audio");
+    if (previousInstructionAudio) previousInstructionAudio.remove();
     const instructionAudio = document.createElement("button");
     instructionAudio.type = "button";
     instructionAudio.className = "speech-button instruction-audio-button strategy-instruction-audio";
