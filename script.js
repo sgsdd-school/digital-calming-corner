@@ -97,12 +97,28 @@ chatBackButton.addEventListener("click", showStartScreen);
 activitiesStartButton.addEventListener("click", showActivitiesHub);
 calmingCornerStartButton.addEventListener("click", showCalmingCorner);
 
-// Read the main Self-Regulation introduction aloud using the device's speech voice.
+// Read the main Self-Regulation introduction using one consistent female English voice.
 const calmingIntroAudioButton = document.getElementById("calming-intro-audio-button");
 let calmingIntroSpeaking = false;
+let calmingIntroFemaleVoice = null;
+
+function findCalmingIntroFemaleVoice() {
+    if (!("speechSynthesis" in window)) return null;
+    const voices = window.speechSynthesis.getVoices();
+    if (!voices.length) return null;
+
+    // Voice names are not formally gender-labelled by browsers, so use common
+    // female voice names and labels, preferring British English.
+    const femaleName = /female|samantha|serena|sonia|hazel|libby|kate|susan|moira|fiona|karen|victoria|tessa|veena|zira|aria|jenny|sara|eva|amelia|olivia/i;
+    const englishVoices = voices.filter(voice => /^en([_-]|$)/i.test(voice.lang));
+    const britishFemale = englishVoices.find(voice =>
+        /^en[-_]gb$/i.test(voice.lang) && femaleName.test(voice.name)
+    );
+    const anyFemaleEnglish = englishVoices.find(voice => femaleName.test(voice.name));
+    return britishFemale || anyFemaleEnglish || null;
+}
 
 function stopCalmingIntroSpeech() {
-    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
     calmingIntroSpeaking = false;
     if (calmingIntroAudioButton) {
         calmingIntroAudioButton.innerHTML = '<span aria-hidden="true">🔊</span>';
@@ -112,6 +128,13 @@ function stopCalmingIntroSpeech() {
     }
 }
 
+if ("speechSynthesis" in window) {
+    calmingIntroFemaleVoice = findCalmingIntroFemaleVoice();
+    window.speechSynthesis.addEventListener("voiceschanged", function() {
+        calmingIntroFemaleVoice = findCalmingIntroFemaleVoice();
+    });
+}
+
 if (calmingIntroAudioButton) {
     calmingIntroAudioButton.addEventListener("click", function () {
         if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) {
@@ -119,18 +142,30 @@ if (calmingIntroAudioButton) {
             return;
         }
         if (calmingIntroSpeaking) {
+            window.speechSynthesis.cancel();
             stopCalmingIntroSpeech();
             return;
         }
+
+        calmingIntroFemaleVoice = findCalmingIntroFemaleVoice();
+        if (!calmingIntroFemaleVoice) {
+            calmingIntroAudioButton.setAttribute("aria-label", "No suitable female English voice is available on this device");
+            calmingIntroAudioButton.title = "Female English voice unavailable";
+            return;
+        }
+
         window.speechSynthesis.cancel();
         const message = new SpeechSynthesisUtterance(
-            "Self-Regulation. How are you feeling right now? Choose the zone that feels closest to you."
+            "Self-Regulation Corner. How are you feeling right now? Choose the zone that feels closest to you."
         );
-        message.lang = "en-GB";
-        message.rate = 0.88;
+        message.voice = calmingIntroFemaleVoice;
+        message.lang = calmingIntroFemaleVoice.lang || "en-GB";
+        message.rate = 0.96;
         message.pitch = 1;
+        message.volume = 1;
         message.onend = stopCalmingIntroSpeech;
         message.onerror = stopCalmingIntroSpeech;
+
         calmingIntroSpeaking = true;
         calmingIntroAudioButton.innerHTML = '<span aria-hidden="true">⏹</span>';
         calmingIntroAudioButton.setAttribute("aria-label", "Stop listening");
@@ -139,7 +174,6 @@ if (calmingIntroAudioButton) {
         window.speechSynthesis.speak(message);
     });
 }
-
 
 const zoneFeelingExamples = {
     blue: { title: "Blue Zone", feelings: ["Sad", "Sick", "Tired", "Bored", "Disappointed"] },
