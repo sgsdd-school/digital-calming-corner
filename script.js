@@ -110,6 +110,7 @@ function showZoneFeelings(zone) {
     document.querySelector(".zones-grid").hidden = true;
     document.querySelector(".calming-header").classList.add("compact");
     zoneFeelings.classList.toggle("green-zone-feelings", zone === "green");
+    zoneFeelings.classList.toggle("blue-zone-feelings", zone === "blue");
     zoneFeelingsTitle.textContent = details.title + " — how are you feeling?";
     zoneFeelingsList.innerHTML = "";
 
@@ -165,7 +166,6 @@ function showZoneFeelings(zone) {
         }
         zoneFeelingsList.appendChild(button);
     });
-    zoneFeelings.classList.remove("blue-zone-feelings");
     zoneFeelings.hidden = false;
 }
 
