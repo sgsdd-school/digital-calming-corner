@@ -99,6 +99,47 @@ calmingCornerStartButton.addEventListener("click", showCalmingCorner);
 
 // Read the main Self-Regulation introduction using one consistent female English voice.
 const calmingIntroAudioButton = document.getElementById("calming-intro-audio-button");
+const zoneFeelingsAudioButton = document.getElementById("zone-feelings-audio-button");
+
+function speakCalmingInstruction(text, button) {
+    if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) return;
+    const voice = findCalmingIntroFemaleVoice();
+    if (!voice) {
+        if (button) {
+            button.setAttribute("aria-label", "No suitable female English voice is available on this device");
+            button.title = "Female English voice unavailable";
+        }
+        return;
+    }
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.voice = voice;
+    utterance.lang = voice.lang || "en-GB";
+    utterance.rate = 0.96;
+    utterance.pitch = 1;
+    utterance.onend = function() {
+        if (button) {
+            button.innerHTML = '<span aria-hidden="true">🔊</span>';
+            button.setAttribute("aria-label", "Listen to the instruction");
+            button.title = "Listen";
+            button.setAttribute("aria-pressed", "false");
+        }
+    };
+    if (button) {
+        button.innerHTML = '<span aria-hidden="true">⏹</span>';
+        button.setAttribute("aria-label", "Stop listening");
+        button.title = "Stop";
+        button.setAttribute("aria-pressed", "true");
+    }
+    window.speechSynthesis.speak(utterance);
+}
+
+if (zoneFeelingsAudioButton) {
+    zoneFeelingsAudioButton.addEventListener("click", function() {
+        speakCalmingInstruction("Choose the feeling that fits you best.", zoneFeelingsAudioButton);
+    });
+}
+
 let calmingIntroSpeaking = false;
 let calmingIntroFemaleVoice = null;
 
@@ -1084,6 +1125,17 @@ function showZoneStrategies(zone, feeling) {
     config.progress.textContent = "Choose one strategy";
     config.title.textContent = config.heading;
     config.question.textContent = "Choose one thing you would like to try.";
+    config.question.insertAdjacentElement("afterend", config.question.parentElement.querySelector(".strategy-instruction-audio") || document.createElement("span"));
+    const instructionAudio = document.createElement("button");
+    instructionAudio.type = "button";
+    instructionAudio.className = "speech-button instruction-audio-button strategy-instruction-audio";
+    instructionAudio.setAttribute("aria-label", "Listen to the instruction");
+    instructionAudio.title = "Listen";
+    instructionAudio.innerHTML = '<span aria-hidden="true">🔊</span>';
+    instructionAudio.addEventListener("click", function() {
+        speakCalmingInstruction(config.question.textContent, instructionAudio);
+    });
+    config.question.insertAdjacentElement("afterend", instructionAudio);
     config.result.hidden = true;
     config.result.replaceChildren();
     config.options.replaceChildren();
