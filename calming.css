@@ -198,3 +198,7 @@
 /* Keep the strategy screen back arrow at the upper-left, beside its heading. */
 .blue-support .strategy-screen-back{display:block;width:42px;height:42px;margin:0 auto 10px 0;padding:0;border:0;border-radius:50%;background:#eef1f5;color:#26364a;font-size:25px;line-height:1;cursor:pointer;}
 .blue-support .strategy-screen-back:hover,.blue-support .strategy-screen-back:focus-visible{background:#dfe6ee;outline:2px solid #526d88;outline-offset:2px;}
+
+
+/* Enforce the native hidden state for every Self-Regulation sub-screen. */
+.calming-corner [hidden] { display: none !important; }
