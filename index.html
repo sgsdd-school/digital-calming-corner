@@ -13,6 +13,10 @@
 </head>
 <body>
  <div class="chat-container">
+  <header class="chat-header">
+   <span class="heart-logo" aria-hidden="true">♥</span>
+   <div><h1>Self-Regulation Corner</h1><small>A space to notice feelings and explore helpful tools.</small></div>
+  </header>
   <main id="start-screen" class="start-screen" hidden>
    <div class="start-message"><div class="message bot-message"><strong>GeorgeBot</strong><p>Hi! I'm GeorgeBot 🤖</p><p>What would you like to do today?</p></div></div>
    <div class="start-options">
@@ -47,7 +51,7 @@
    <section id="zone-feelings" class="zone-feelings" hidden aria-live="polite">
     <button id="back-to-zones-button" class="zone-feelings-back" type="button" aria-label="Back to zones" title="Back to zones">←</button>
     <h3 id="zone-feelings-title">How are you feeling?</h3>
-    <p>Choose the feeling that fits you best.</p>
+    <div class="zone-feelings-instruction"><p id="zone-feelings-instruction">Choose the feeling that fits you best.</p><button id="zone-feelings-audio-button" class="speech-button instruction-audio-button" type="button" aria-label="Listen to the instruction" title="Listen"><span aria-hidden="true">🔊</span></button></div>
     <div id="zone-feelings-list" class="zone-feelings-list"></div>
    </section>
    <section id="unsure-support" class="blue-support unsure-support" hidden aria-live="polite"><div id="unsure-support-progress" class="blue-support-progress"></div><h3 id="unsure-support-title">It is okay not to know</h3><p id="unsure-support-question"></p><div id="unsure-support-options" class="blue-support-options"></div><div id="unsure-support-result" class="blue-support-result" hidden></div><button id="unsure-human-connection" class="human-connection-button" type="button">Talk to a trusted adult</button><button id="unsure-support-back" class="back-to-zones-button" type="button">Back to zones</button></section>
