@@ -126,13 +126,32 @@ function showZoneFeelings(zone) {
             "Angry": "😠", "Furious": "🤬", "Panicked": "😱", "Terrified": "😨", "Extremely sad": "😭"
         };
 
-        const emoji = document.createElement("span");
-        emoji.className = "zone-feeling-emoji";
-        emoji.textContent = feelingEmojis[feeling] || "💭";
         const label = document.createElement("span");
         label.className = "zone-feeling-label";
         label.textContent = feeling;
-        button.appendChild(emoji);
+
+        if (zone === "blue") {
+            const blueIllustrations = {
+                "Sad": "assets/feelings/blue-sad.svg",
+                "Tired": "assets/feelings/blue-tired.svg",
+                "Sick": "assets/feelings/blue-sick.svg",
+                "Bored": "assets/feelings/blue-bored.svg",
+                "Disappointed": "assets/feelings/blue-disappointed.svg"
+            };
+            const illustration = document.createElement("img");
+            illustration.className = "zone-feeling-image";
+            illustration.src = blueIllustrations[feeling];
+            illustration.alt = "";
+            illustration.setAttribute("aria-hidden", "true");
+            illustration.draggable = false;
+            button.appendChild(illustration);
+        } else {
+            const emoji = document.createElement("span");
+            emoji.className = "zone-feeling-emoji";
+            emoji.textContent = feelingEmojis[feeling] || "💭";
+            button.appendChild(emoji);
+        }
+
         button.appendChild(label);
 
         if (zone === "blue") {
