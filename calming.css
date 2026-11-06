@@ -73,3 +73,11 @@
  .zone-feelings.blue-zone-feelings .zone-feeling-image{height:108px;max-width:130px}
  .zone-feelings.blue-zone-feelings .zone-feeling-label{font-size:18px}
 }
+
+
+/* Back arrow stays beside the feeling heading, above the cards. */
+.zone-feelings{position:relative;padding-top:2px}
+.zone-feelings-back{position:absolute;top:-3px;left:0;width:42px;height:42px;display:flex;align-items:center;justify-content:center;border:0;border-radius:50%;background:#eef1f5;color:#26364a;font-size:25px;line-height:1;cursor:pointer}
+.zone-feelings-back:hover,.zone-feelings-back:focus-visible{background:#dfe6ee;outline:2px solid #526d88;outline-offset:2px}
+.zone-feelings h3{padding:0 48px}
+@media(max-width:700px){.zone-feelings-back{width:40px;height:40px;top:-5px}.zone-feelings h3{padding:0 44px}}
