@@ -202,3 +202,56 @@
 
 /* Enforce the native hidden state for every Self-Regulation sub-screen. */
 .calming-corner [hidden] { display: none !important; }
+
+
+/* Picture-led technique cards, matching the visual feeling cards. */
+.blue-support-option.strategy-option {
+    min-height: 154px;
+    padding: 12px 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+.strategy-option-image {
+    display: block;
+    width: 100%;
+    max-width: 112px;
+    height: 92px;
+    object-fit: contain;
+    pointer-events: none;
+}
+.strategy-option-label {
+    display: block;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.25;
+}
+.strategy-detail-illustration {
+    display: block;
+    width: 150px;
+    height: 132px;
+    margin: 4px auto 12px;
+    object-fit: contain;
+}
+@media(max-width:700px) {
+    .blue-support-option.strategy-option {
+        min-height: 142px;
+        padding: 10px 8px;
+    }
+    .strategy-option-image {
+        max-width: 104px;
+        height: 84px;
+    }
+    .strategy-option-label {
+        font-size: 15px;
+    }
+    .strategy-detail-illustration {
+        width: 132px;
+        height: 116px;
+    }
+}
