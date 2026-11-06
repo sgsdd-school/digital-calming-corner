@@ -187,5 +187,5 @@
 
 
 /* Keep the zone strategy screen focused on its heading and choices. */
-.blue-support:has(.strategy-instruction-audio) .blue-support-progress{display:none!important}
-.blue-support:has(.strategy-instruction-audio) .blue-support-question{display:none!important}
+.blue-support:has(.strategy-instruction-audio):not(.strategy-detail-view) .blue-support-progress{display:none!important}
+.blue-support:has(.strategy-instruction-audio):not(.strategy-detail-view) .blue-support-question{display:none!important}
