@@ -79,101 +79,7 @@ function showCalmingCorner() {
     form.hidden = true;
     calmingCorner.hidden = false;
     document.querySelector(".calming-header").classList.remove("compact");
-    // Each zone has one shared strategy set. The selected emotion does not change the choices.
-const zoneStrategySets = {
-    red: {
-        section: redSupport, progress: redSupportProgress, title: redSupportTitle,
-        question: redSupportQuestion, options: redSupportOptions, result: redSupportResult,
-        heading: "When I feel too angry, I can...",
-        strategies: [
-            ["🌬️", "Take five deep breaths", "Breathe in gently and breathe out slowly five times. Keep your breathing comfortable. Do not force or hold your breath."],
-            ["💬", "Say how I feel in calm words", "Try saying: “I feel angry because…” or “I need some help.” You can speak to your teacher or someone you trust."],
-            ["💧", "Have a drink of water", "Take a little break and have a few sips of water."],
-            ["🚶", "Go for a walk", "If it is safe and your teacher says it is okay, take a short walk. You can walk with an adult."],
-            ["🧘", "Take a break in a quiet place", "Find a calm, safe place. Sit comfortably for a little while and take the time you need."],
-            ["🧩", "Use a fidget or calm-down jar", "Choose a fidget or look at the calm-down jar. Notice what it feels like or watch it settle."]
-        ]
-    },
-    yellow: {
-        section: yellowSupport, progress: yellowSupportProgress, title: yellowSupportTitle,
-        question: yellowSupportQuestion, options: yellowSupportOptions, result: yellowSupportResult,
-        heading: "When I feel too worried, I can...",
-        strategies: [
-            ["🌬️", "Take five deep breaths", "Breathe in gently and breathe out slowly five times. Keep your breathing comfortable. Do not force or hold your breath."],
-            ["💬", "Say how I feel in calm words", "Try saying: “I feel worried about…” or “Can you help me?” You can speak to your teacher or someone you trust."],
-            ["💧", "Have a drink of water", "Take a little pause and have a few sips of water."],
-            ["🚶", "Go for a walk", "If it is safe and your teacher says it is okay, take a short walk. You can walk with an adult."],
-            ["🧘", "Take a break in a quiet place", "Find a calm, safe place. Sit comfortably for a little while and take the time you need."],
-            ["🫧", "Blow bubbles", "Blow bubbles slowly and gently. Watch them float away. If you do not have bubbles, imagine blowing one."]
-        ]
-    },
-    green: {
-        section: greenSupport, progress: greenSupportProgress, title: greenSupportTitle,
-        question: greenSupportQuestion, options: greenSupportOptions, result: greenSupportResult,
-        heading: "When I feel ready to learn, I can...",
-        strategies: [
-            ["🎯", "Focus on my work", "Look at the task in front of you. Choose one small part and give it your attention."],
-            ["👂", "Listen carefully to the teacher", "Pause what you are doing, look towards the speaker if comfortable, and listen for the important instructions."],
-            ["💭", "Share my thoughts with the class", "When you are ready, put up your hand or use the class signal and share your idea."],
-            ["❓", "Ask questions", "If something is not clear, ask a question. You could say: “Could you explain that again, please?”"],
-            ["🤝", "Help a friend or classmate", "Ask if someone would like help. Be kind, and let them decide whether they want it."],
-            ["🌟", "Share what I have learnt with the class", "Choose one thing you have learnt and explain it to a partner or the class."]
-        ]
-    },
-    blue: {
-        section: blueSupport, progress: blueSupportProgress, title: blueSupportTitle,
-        question: blueSupportQuestion, options: blueSupportOptions, result: blueSupportResult,
-        heading: "When I feel too sad, I can...",
-        strategies: [
-            ["🌬️", "Take five deep breaths", "Breathe in gently and breathe out slowly five times. Keep your breathing comfortable. Do not force or hold your breath."],
-            ["💬", "Say how I feel in calm words", "Try saying: “I feel sad because…” or “I would like someone to sit with me.” You can speak to someone you trust."],
-            ["🧘", "Take a break in a quiet place", "Find a calm, safe place. Sit comfortably for a little while and take the time you need."],
-            ["📖", "Read or listen to a story", "Choose a favourite book or an audio story. Find a comfortable place and enjoy listening or reading."],
-            ["🧩", "Use a fidget or calm-down jar", "Choose a fidget or look at the calm-down jar. Notice what it feels like or watch it settle."],
-            ["🫧", "Blow bubbles", "Blow bubbles slowly and gently. Watch them float away. If you do not have bubbles, imagine blowing one."]
-        ]
-    }
-};
-
-function showZoneStrategies(zone, feeling) {
-    const config = zoneStrategySets[zone];
-    if (!config) return;
-
-    zoneFeelings.hidden = true;
-    [blueSupport, greenSupport, yellowSupport, redSupport].forEach(section => section.hidden = true);
-    config.section.hidden = false;
-    config.progress.textContent = "Choose one strategy";
-    config.title.textContent = config.heading;
-    config.question.textContent = "Choose one thing you would like to try.";
-    config.result.hidden = true;
-    config.result.replaceChildren();
-    config.options.replaceChildren();
-
-    config.strategies.forEach(([icon, label, instruction]) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "blue-support-option";
-        button.textContent = icon + " " + label;
-        button.addEventListener("click", function() {
-            config.progress.textContent = "A strategy to try";
-            config.title.textContent = label;
-            config.question.textContent = instruction;
-            config.result.hidden = true;
-            config.options.replaceChildren();
-            const back = document.createElement("button");
-            back.type = "button";
-            back.className = "blue-support-option";
-            back.textContent = "← Back to strategies";
-            back.addEventListener("click", function() {
-                showZoneStrategies(zone, feeling);
-            });
-            config.options.appendChild(back);
-        });
-        config.options.appendChild(button);
-    });
-}
-
-zoneCards.forEach(function(card) {
+    zoneCards.forEach(function(card) {
         card.setAttribute("aria-pressed", "false");
     });
     document.querySelector(".zones-grid").hidden = false;
@@ -1075,4 +981,100 @@ form.addEventListener("submit", function(event) {
     }, 600);
 });
 
+
+
+
+// Each zone has one shared strategy set. The selected emotion does not change the choices.
+const zoneStrategySets = {
+    red: {
+        section: redSupport, progress: redSupportProgress, title: redSupportTitle,
+        question: redSupportQuestion, options: redSupportOptions, result: redSupportResult,
+        heading: "When I feel too angry, I can...",
+        strategies: [
+            ["🌬️", "Take five deep breaths", "Breathe in gently and breathe out slowly five times. Keep your breathing comfortable. Do not force or hold your breath."],
+            ["💬", "Say how I feel in calm words", "Try saying: “I feel angry because…” or “I need some help.” You can speak to your teacher or someone you trust."],
+            ["💧", "Have a drink of water", "Take a little break and have a few sips of water."],
+            ["🚶", "Go for a walk", "If it is safe and your teacher says it is okay, take a short walk. You can walk with an adult."],
+            ["🧘", "Take a break in a quiet place", "Find a calm, safe place. Sit comfortably for a little while and take the time you need."],
+            ["🧩", "Use a fidget or calm-down jar", "Choose a fidget or look at the calm-down jar. Notice what it feels like or watch it settle."]
+        ]
+    },
+    yellow: {
+        section: yellowSupport, progress: yellowSupportProgress, title: yellowSupportTitle,
+        question: yellowSupportQuestion, options: yellowSupportOptions, result: yellowSupportResult,
+        heading: "When I feel too worried, I can...",
+        strategies: [
+            ["🌬️", "Take five deep breaths", "Breathe in gently and breathe out slowly five times. Keep your breathing comfortable. Do not force or hold your breath."],
+            ["💬", "Say how I feel in calm words", "Try saying: “I feel worried about…” or “Can you help me?” You can speak to your teacher or someone you trust."],
+            ["💧", "Have a drink of water", "Take a little pause and have a few sips of water."],
+            ["🚶", "Go for a walk", "If it is safe and your teacher says it is okay, take a short walk. You can walk with an adult."],
+            ["🧘", "Take a break in a quiet place", "Find a calm, safe place. Sit comfortably for a little while and take the time you need."],
+            ["🫧", "Blow bubbles", "Blow bubbles slowly and gently. Watch them float away. If you do not have bubbles, imagine blowing one."]
+        ]
+    },
+    green: {
+        section: greenSupport, progress: greenSupportProgress, title: greenSupportTitle,
+        question: greenSupportQuestion, options: greenSupportOptions, result: greenSupportResult,
+        heading: "When I feel ready to learn, I can...",
+        strategies: [
+            ["🎯", "Focus on my work", "Look at the task in front of you. Choose one small part and give it your attention."],
+            ["👂", "Listen carefully to the teacher", "Pause what you are doing, look towards the speaker if comfortable, and listen for the important instructions."],
+            ["💭", "Share my thoughts with the class", "When you are ready, put up your hand or use the class signal and share your idea."],
+            ["❓", "Ask questions", "If something is not clear, ask a question. You could say: “Could you explain that again, please?”"],
+            ["🤝", "Help a friend or classmate", "Ask if someone would like help. Be kind, and let them decide whether they want it."],
+            ["🌟", "Share what I have learnt with the class", "Choose one thing you have learnt and explain it to a partner or the class."]
+        ]
+    },
+    blue: {
+        section: blueSupport, progress: blueSupportProgress, title: blueSupportTitle,
+        question: blueSupportQuestion, options: blueSupportOptions, result: blueSupportResult,
+        heading: "When I feel too sad, I can...",
+        strategies: [
+            ["🌬️", "Take five deep breaths", "Breathe in gently and breathe out slowly five times. Keep your breathing comfortable. Do not force or hold your breath."],
+            ["💬", "Say how I feel in calm words", "Try saying: “I feel sad because…” or “I would like someone to sit with me.” You can speak to someone you trust."],
+            ["🧘", "Take a break in a quiet place", "Find a calm, safe place. Sit comfortably for a little while and take the time you need."],
+            ["📖", "Read or listen to a story", "Choose a favourite book or an audio story. Find a comfortable place and enjoy listening or reading."],
+            ["🧩", "Use a fidget or calm-down jar", "Choose a fidget or look at the calm-down jar. Notice what it feels like or watch it settle."],
+            ["🫧", "Blow bubbles", "Blow bubbles slowly and gently. Watch them float away. If you do not have bubbles, imagine blowing one."]
+        ]
+    }
+};
+
+function showZoneStrategies(zone, feeling) {
+    const config = zoneStrategySets[zone];
+    if (!config) return;
+
+    zoneFeelings.hidden = true;
+    [blueSupport, greenSupport, yellowSupport, redSupport].forEach(section => section.hidden = true);
+    config.section.hidden = false;
+    config.progress.textContent = "Choose one strategy";
+    config.title.textContent = config.heading;
+    config.question.textContent = "Choose one thing you would like to try.";
+    config.result.hidden = true;
+    config.result.replaceChildren();
+    config.options.replaceChildren();
+
+    config.strategies.forEach(([icon, label, instruction]) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "blue-support-option";
+        button.textContent = icon + " " + label;
+        button.addEventListener("click", function() {
+            config.progress.textContent = "A strategy to try";
+            config.title.textContent = label;
+            config.question.textContent = instruction;
+            config.result.hidden = true;
+            config.options.replaceChildren();
+            const back = document.createElement("button");
+            back.type = "button";
+            back.className = "blue-support-option";
+            back.textContent = "← Back to strategies";
+            back.addEventListener("click", function() {
+                showZoneStrategies(zone, feeling);
+            });
+            config.options.appendChild(back);
+        });
+        config.options.appendChild(button);
+    });
+}
 
