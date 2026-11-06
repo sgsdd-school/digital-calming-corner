@@ -8,7 +8,6 @@ const askGeorgeButton = document.getElementById("ask-george-button");
 const activitiesStartButton = document.getElementById("activities-start-button");
 const calmingCornerStartButton = document.getElementById("calming-corner-start-button");
 const calmingCorner = document.getElementById("calming-corner");
-const calmingBackButton = document.getElementById("calming-back-button");
 const zoneCards = document.querySelectorAll(".zone-card");
 const zoneFeelings = document.getElementById("zone-feelings");
 const zoneFeelingsTitle = document.getElementById("zone-feelings-title");
@@ -97,7 +96,6 @@ askGeorgeButton.addEventListener("click", showChat);
 chatBackButton.addEventListener("click", showStartScreen);
 activitiesStartButton.addEventListener("click", showActivitiesHub);
 calmingCornerStartButton.addEventListener("click", showCalmingCorner);
-calmingBackButton.addEventListener("click", showStartScreen);
 
 const zoneFeelingExamples = {
     blue: { title: "Blue Zone", feelings: ["Sad", "Tired", "Sick", "Bored", "Disappointed"] },
