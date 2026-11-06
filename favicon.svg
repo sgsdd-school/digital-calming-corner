@@ -1,5 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Heart">
-  <circle cx="50" cy="50" r="48" fill="#FFF0F2"/>
-  <path d="M50 82 17 50C-1 31 12 10 31 10c9 0 15 5 19 12 4-7 10-12 19-12 19 0 32 21 14 40L50 82Z" fill="#E9788C"/>
-  <path d="M24 28c3-6 8-9 14-9" fill="none" stroke="#FFFFFF" stroke-width="5" stroke-linecap="round" opacity=".8"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Four colour zones">
+  <rect x="5" y="5" width="90" height="90" rx="22" fill="#ffffff"/>
+  <path d="M16 16h31v31H16z" fill="#79A9D8"/>
+  <path d="M53 16h31v31H53z" fill="#79B985"/>
+  <path d="M16 53h31v31H16z" fill="#F0C65B"/>
+  <path d="M53 53h31v31H53z" fill="#D97878"/>
 </svg>
