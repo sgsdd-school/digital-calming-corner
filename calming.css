@@ -138,3 +138,30 @@
  .unsure-support .blue-support-options{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
  .unsure-support .blue-support-option{min-height:100px;padding:12px 8px;font-size:15px}
 }
+
+
+/* Consistent picture cards and visible zone colours across all feeling screens. */
+.zone-feelings .zone-feeling-image{display:block!important;width:100%!important;max-width:150px!important;height:125px!important;object-fit:contain!important;flex:0 0 auto;pointer-events:none}
+.zone-feelings.green-zone-feelings .zone-feeling-option{background-color:#DDF0DF!important;border-color:#B8D9BF!important;color:#245B35!important}
+.zone-feelings.yellow-zone-feelings .zone-feeling-option{background-color:#FFF0C9!important;border-color:#F0D88F!important;color:#755516!important}
+.zone-feelings.red-zone-feelings .zone-feeling-option{background-color:#F9DEDE!important;border-color:#EDBDBD!important;color:#843B3B!important}
+.zone-feelings.green-zone-feelings .zone-feeling-option:hover,
+.zone-feelings.green-zone-feelings .zone-feeling-option:focus-visible{background-color:#C8E8CE!important}
+.zone-feelings.yellow-zone-feelings .zone-feeling-option:hover,
+.zone-feelings.yellow-zone-feelings .zone-feeling-option:focus-visible{background-color:#FFE6A8!important}
+.zone-feelings.red-zone-feelings .zone-feeling-option:hover,
+.zone-feelings.red-zone-feelings .zone-feeling-option:focus-visible{background-color:#F5CCCC!important}
+.zone-feelings.green-zone-feelings .zone-feeling-label,
+.zone-feelings.yellow-zone-feelings .zone-feeling-label,
+.zone-feelings.red-zone-feelings .zone-feeling-label{font-size:20px!important;font-weight:700!important;line-height:1.2}
+.unsure-support .unsure-card{min-height:150px!important;padding:12px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:8px!important;background:#EEF1F5!important;border:2px solid #D8DEE7!important;color:#39465A!important}
+.unsure-support .unsure-card .zone-feeling-image{width:100%!important;max-width:125px!important;height:95px!important}
+.unsure-support .unsure-card .zone-feeling-label{font-size:16px!important;font-weight:700!important;text-align:center}
+@media(max-width:700px){
+ .zone-feelings .zone-feeling-image{height:108px!important;max-width:130px!important}
+ .zone-feelings.green-zone-feelings .zone-feeling-label,
+ .zone-feelings.yellow-zone-feelings .zone-feeling-label,
+ .zone-feelings.red-zone-feelings .zone-feeling-label{font-size:18px!important}
+ .unsure-support .unsure-card{min-height:130px!important}
+ .unsure-support .unsure-card .zone-feeling-image{height:82px!important}
+}
