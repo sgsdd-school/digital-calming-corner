@@ -287,3 +287,7 @@ body { font-family: Arial, Helvetica, sans-serif; background: #f5f7fa; color: #0
  .noise-meter-panel .noise-meter-shell{border-radius:20px;padding:16px}
  .noise-meter-panel .noise-meter-track{width:90%}
 }
+
+/* Digital Calming Corner identity and concise zone-selection view */
+.heart-logo{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;flex:0 0 34px;color:#F08A9B;font-size:36px;line-height:1;text-shadow:0 2px 5px rgba(0,0,0,.12)}
+@media(max-width:700px){.heart-logo{width:30px;height:30px;flex-basis:30px;font-size:32px}}
