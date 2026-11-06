@@ -103,6 +103,14 @@ const zoneFeelingsAudioButton = document.getElementById("zone-feelings-audio-but
 
 function speakCalmingInstruction(text, button) {
     if (!("speechSynthesis" in window) || !("SpeechSynthesisUtterance" in window)) return;
+    if (button && button.getAttribute("aria-pressed") === "true") {
+        window.speechSynthesis.cancel();
+        button.innerHTML = '<span aria-hidden="true">🔊</span>';
+        button.setAttribute("aria-label", "Listen to the instruction");
+        button.title = "Listen";
+        button.setAttribute("aria-pressed", "false");
+        return;
+    }
     const voice = findCalmingIntroFemaleVoice();
     if (!voice) {
         if (button) {
