@@ -133,27 +133,19 @@ function showZoneFeelings(zone) {
         label.className = "zone-feeling-label";
         label.textContent = feeling;
 
-        if (zone === "blue") {
-            const blueIllustrations = {
-                "Sad": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F622.svg",
-                "Tired": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F62A.svg",
-                "Sick": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F912.svg",
-                "Bored": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F612.svg",
-                "Disappointed": "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/1F61E.svg"
-            };
-            const illustration = document.createElement("img");
-            illustration.className = "zone-feeling-image";
-            illustration.src = blueIllustrations[feeling];
-            illustration.alt = "";
-            illustration.setAttribute("aria-hidden", "true");
-            illustration.draggable = false;
-            button.appendChild(illustration);
-        } else {
-            const emoji = document.createElement("span");
-            emoji.className = "zone-feeling-emoji";
-            emoji.textContent = feelingEmojis[feeling] || "💭";
-            button.appendChild(emoji);
-        }
+        const feelingIllustrations = {
+            "Sad": "1F622", "Tired": "1F62A", "Sick": "1F912", "Bored": "1F612", "Disappointed": "1F61E",
+            "Happy": "1F60A", "Calm": "1F60C", "Focused": "1F9D0", "Relaxed": "1F642",
+            "Frustrated": "1F624", "Worried": "1F61F", "Silly": "1F92A", "Excited": "1F929",
+            "Angry": "1F620", "Terrified": "1F628", "Elated": "1F603", "Out of Control": "1F635"
+        };
+        const illustration = document.createElement("img");
+        illustration.className = "zone-feeling-image";
+        illustration.src = "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/" + (feelingIllustrations[feeling] || "1F4AD") + ".svg";
+        illustration.alt = "";
+        illustration.setAttribute("aria-hidden", "true");
+        illustration.draggable = false;
+        button.appendChild(illustration);
 
         button.appendChild(label);
 
