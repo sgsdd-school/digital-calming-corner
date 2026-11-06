@@ -98,10 +98,10 @@ activitiesStartButton.addEventListener("click", showActivitiesHub);
 calmingCornerStartButton.addEventListener("click", showCalmingCorner);
 
 const zoneFeelingExamples = {
-    blue: { title: "Blue Zone", feelings: ["Sad", "Tired", "Sick", "Bored", "Disappointed"] },
-    green: { title: "Green Zone", feelings: ["Calm", "Happy", "Focused", "Content", "Proud"] },
-    yellow: { title: "Yellow Zone", feelings: ["Stressed", "Frustrated", "Anxious", "Excited", "Silly"] },
-    red: { title: "Red Zone", feelings: ["Angry", "Furious", "Panicked", "Terrified", "Extremely sad"] }
+    blue: { title: "Blue Zone", feelings: ["Sad", "Sick", "Tired", "Bored", "Disappointed"] },
+    green: { title: "Green Zone", feelings: ["Happy", "Calm", "Focused", "Relaxed"] },
+    yellow: { title: "Yellow Zone", feelings: ["Frustrated", "Worried", "Silly", "Excited"] },
+    red: { title: "Red Zone", feelings: ["Angry", "Terrified", "Elated", "Out of Control"] }
 };
 
 function showZoneFeelings(zone) {
@@ -122,9 +122,9 @@ function showZoneFeelings(zone) {
 
         const feelingEmojis = {
             "Sad": "😢", "Tired": "😴", "Sick": "🤒", "Bored": "😐", "Disappointed": "😞",
-            "Calm": "😌", "Happy": "😊", "Focused": "🎯", "Content": "🙂", "Proud": "🥹",
-            "Stressed": "😣", "Frustrated": "😤", "Anxious": "😟", "Excited": "🤩", "Silly": "🤪",
-            "Angry": "😠", "Furious": "🤬", "Panicked": "😱", "Terrified": "😨", "Extremely sad": "😭"
+            "Calm": "😌", "Happy": "😊", "Focused": "🎯", "Relaxed": "😌",
+            "Frustrated": "😤", "Worried": "😟", "Excited": "🤩", "Silly": "🤪",
+            "Angry": "😠", "Terrified": "😨", "Elated": "🤩", "Out of Control": "😵‍💫"
         };
 
         const label = document.createElement("span");
