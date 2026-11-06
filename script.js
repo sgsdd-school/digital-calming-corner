@@ -298,14 +298,16 @@ zoneCards.forEach(function(card) {
 });
 
 backToZonesButton.addEventListener("click", function() {
+    // Return to the zone-selection screen and explicitly restore its layout.
     zoneFeelings.hidden = true;
-    blueSupport.hidden = true;
-    greenSupport.hidden = true;
-    yellowSupport.hidden = true;
-    redSupport.hidden = true;
-    unsureSupport.hidden = true;
-    document.querySelector(".zones-grid").hidden = false;
+    [blueSupport, greenSupport, yellowSupport, redSupport, unsureSupport].forEach(section => {
+        if (section) section.hidden = true;
+    });
+    const zonesGrid = document.querySelector(".zones-grid");
+    zonesGrid.hidden = false;
+    zonesGrid.style.display = "grid";
     document.querySelector(".calming-header").classList.remove("compact");
+    zoneCards.forEach(card => card.setAttribute("aria-pressed", "false"));
 });
 blueSupportBack.addEventListener("click", function() {
     blueSupport.hidden = true;
@@ -1145,7 +1147,12 @@ function showZoneStrategies(zone, feeling) {
     instructionAudio.title = "Listen";
     instructionAudio.innerHTML = '<span aria-hidden="true">🔊</span>';
     instructionAudio.addEventListener("click", function() {
-        speakCalmingInstruction(config.question.textContent, instructionAudio);
+        // On the strategy-list screen the question is intentionally blank, so
+        // read the heading and available choices. On a detail screen, read its guidance.
+        const detailText = config.question.textContent.trim();
+        const listText = config.heading + " " +
+            config.strategies.map(([, label]) => label).join(". ");
+        speakCalmingInstruction(detailText || listText, instructionAudio);
     });
     config.question.insertAdjacentElement("afterend", instructionAudio);
     config.result.hidden = true;
