@@ -318,7 +318,6 @@ greenSupportBack.addEventListener("click", function() {
 document.getElementById("yellow-support-back").addEventListener("click",()=>{yellowSupport.hidden=true;zoneFeelings.hidden=false;});
 document.getElementById("red-support-back").addEventListener("click",()=>{redSupport.hidden=true;zoneFeelings.hidden=false;});
 document.getElementById("unsure-support-back").addEventListener("click",()=>{unsureSupport.hidden=true;document.querySelector(".zones-grid").hidden=false;document.querySelector(".calming-header").classList.remove("compact");});
-document.getElementById("unsure-human-connection").addEventListener("click",()=>showHumanConnection(unsureTitle,unsureQuestion,unsureResult,unsureOptions));
 
 backToStartButton.addEventListener("click", showStartScreen);
 
@@ -538,10 +537,6 @@ function showHumanConnection(title,question,result,options){
  result.textContent="You could say: “I would like some help. Can you talk with me?” You can also show them this screen.";
  result.hidden=false; options.replaceChildren();
 }
-document.getElementById("blue-human-connection").addEventListener("click",()=>showHumanConnection(blueSupportTitle,blueSupportQuestion,blueSupportResult,blueSupportOptions));
-document.getElementById("green-human-connection").addEventListener("click",()=>showHumanConnection(greenSupportTitle,greenSupportQuestion,greenSupportResult,greenSupportOptions));
-document.getElementById("yellow-human-connection").addEventListener("click",()=>showHumanConnection(yellowSupportTitle,yellowSupportQuestion,yellowSupportResult,yellowSupportOptions));
-document.getElementById("red-human-connection").addEventListener("click",showRedHumanConnection);
 function showRedSupport(){
  zoneFeelings.hidden=true;redSupport.hidden=false;redSupportProgress.textContent="Pause, notice, and choose";redSupportTitle.textContent="Your feelings are very strong right now";
  redSupportQuestion.textContent="You do not have to push your feelings away. Let's try one safe way to help your body settle a little. You can stop at any time.";
@@ -1130,9 +1125,9 @@ function showZoneStrategies(zone, feeling) {
     zoneFeelings.hidden = true;
     [blueSupport, greenSupport, yellowSupport, redSupport].forEach(section => section.hidden = true);
     config.section.hidden = false;
-    config.progress.textContent = "Choose one strategy";
+    config.progress.textContent = "";
     config.title.textContent = config.heading;
-    config.question.textContent = "Choose one thing you would like to try.";
+    config.question.textContent = "";
     const previousInstructionAudio = config.section.querySelector(".strategy-instruction-audio");
     if (previousInstructionAudio) previousInstructionAudio.remove();
     const instructionAudio = document.createElement("button");
