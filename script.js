@@ -111,6 +111,8 @@ function showZoneFeelings(zone) {
     document.querySelector(".calming-header").classList.add("compact");
     zoneFeelings.classList.toggle("green-zone-feelings", zone === "green");
     zoneFeelings.classList.toggle("blue-zone-feelings", zone === "blue");
+    zoneFeelings.classList.toggle("yellow-zone-feelings", zone === "yellow");
+    zoneFeelings.classList.toggle("red-zone-feelings", zone === "red");
     zoneFeelingsTitle.textContent = details.title + " — how are you feeling?";
     zoneFeelingsList.innerHTML = "";
 
