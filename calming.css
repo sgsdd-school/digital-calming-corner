@@ -57,3 +57,19 @@
 .zone-feelings.green-zone-feelings .zone-feeling-option{background:#DDF0DF;border:1px solid #b8d9bf;color:#245b35}
 .zone-feelings.green-zone-feelings .zone-feeling-option:hover,.zone-feelings.green-zone-feelings .zone-feeling-option:focus-visible{background:#c8e8ce;border-color:#38734A;outline:2px solid #38734A;outline-offset:2px}
 .zone-feelings.green-zone-feelings .zone-feeling-emoji{color:#38734A}
+
+/* Blue Zone: large, picture-led cards for touch-first iPad use. */
+.zone-feelings.blue-zone-feelings .zone-feelings-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.zone-feelings.blue-zone-feelings .zone-feeling-option{min-height:190px;padding:12px 10px;gap:8px;background:#EAF4FC;border:2px solid #C4DDF1;border-radius:18px;color:#244D75;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.zone-feelings.blue-zone-feelings .zone-feeling-option:hover,.zone-feelings.blue-zone-feelings .zone-feeling-option:focus-visible{background:#DCEBFA;border-color:#6F9FC8;outline:3px solid #6F9FC8;outline-offset:2px}
+.zone-feelings.blue-zone-feelings .zone-feeling-image{display:block;width:100%;max-width:150px;height:125px;object-fit:contain;pointer-events:none}
+.zone-feelings.blue-zone-feelings .zone-feeling-label{font-size:20px;font-weight:700;line-height:1.2}
+@media (min-width:900px) and (orientation:landscape){
+ .zone-feelings.blue-zone-feelings .zone-feelings-list{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (max-width:700px){
+ .zone-feelings.blue-zone-feelings .zone-feelings-list{gap:10px}
+ .zone-feelings.blue-zone-feelings .zone-feeling-option{min-height:165px;padding:10px 7px}
+ .zone-feelings.blue-zone-feelings .zone-feeling-image{height:108px;max-width:130px}
+ .zone-feelings.blue-zone-feelings .zone-feeling-label{font-size:18px}
+}
