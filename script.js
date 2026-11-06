@@ -203,7 +203,19 @@ backToStartButton.addEventListener("click", showStartScreen);
 
 
 const unsureActivities=[["Notice your body","Notice what your body is telling you","Take about 1 minute. Notice whether your body feels tired, full of energy, tense, relaxed, warm, or something else. You do not need to name a feeling."],["Draw or choose colours","Show it with colours or shapes","For about 2 minutes, draw lines, shapes or colours that match how you feel inside. There is no right or wrong way."],["Take a quiet pause","Take a quiet pause","Sit comfortably for about 1 minute. Let your breathing happen naturally and notice what is around you."],["Move gently","Move gently","If you feel well and have a safe space, stretch gently or roll your shoulders for about 1 minute. Stop if uncomfortable."]];
-function unsureButton(label,fn){const b=document.createElement("button");b.type="button";b.className="blue-support-option";b.textContent=label;b.addEventListener("click",fn);unsureOptions.appendChild(b);}
+function unsureButton(label,fn){
+ const b=document.createElement("button");b.type="button";b.className="blue-support-option unsure-card";
+ const unsureImages={
+  "My body feels tired":"1F62A","My body feels full of energy":"1F3C3","My body feels tense":"1F630",
+  "My body feels comfortable":"1F60C","My thoughts feel busy":"1F4AD","I am not sure what I notice":"1F914",
+  "Notice your body":"1F9D8","Draw or choose colours":"1F3A8","Take a quiet pause":"1F60C","Move gently":"1F938",
+  "I have finished — check in":"1F44D","Choose a zone":"1F3AF","Try another activity":"1F504","Take a break":"1F6CB"
+ };
+ const code=unsureImages[label];
+ if(code){const img=document.createElement("img");img.className="zone-feeling-image";img.src="https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/"+code+".svg";img.alt="";img.setAttribute("aria-hidden","true");img.draggable=false;b.appendChild(img);}
+ const text=document.createElement("span");text.className="zone-feeling-label";text.textContent=label;b.appendChild(text);
+ b.addEventListener("click",fn);unsureOptions.appendChild(b);
+}
 function showUnsureSupport(){document.querySelector(".calming-header").classList.add("compact");document.querySelector(".zones-grid").hidden=true;zoneFeelings.hidden=true;blueSupport.hidden=true;greenSupport.hidden=true;yellowSupport.hidden=true;redSupport.hidden=true;unsureSupport.hidden=false;unsureProgress.textContent="Explore at your own pace";unsureTitle.textContent="It is okay not to know";unsureQuestion.textContent="Sometimes it is hard to name a feeling. Try an activity just to notice more about yourself. You do not have to choose a zone. Take your time — activities can take 1–3 minutes. If you finish before others, choose another activity or repeat one you liked. There is no need to rush.";unsureResult.hidden=true;unsureOptions.replaceChildren();["My body feels tired","My body feels full of energy","My body feels tense","My body feels comfortable","My thoughts feel busy","I am not sure what I notice"].forEach(v=>unsureButton(v,()=>showUnsureActivities(v)));}
 function showUnsureActivities(note){unsureProgress.textContent="Choose an activity";unsureTitle.textContent="Thank you for noticing";unsureQuestion.textContent="You noticed: "+note+". Choose one activity that feels okay.";unsureResult.hidden=true;unsureOptions.replaceChildren();unsureActivities.forEach((a,i)=>unsureButton(a[0],()=>runUnsureActivity(i)));}
 function runUnsureActivity(i){const a=unsureActivities[i];unsureProgress.textContent="Your activity";unsureTitle.textContent=a[1];unsureQuestion.textContent=a[2];unsureResult.hidden=false;unsureResult.textContent="When you are ready, check in. You do not need to feel different.";unsureOptions.replaceChildren();unsureButton("I have finished — check in",showUnsureCheckIn);}
