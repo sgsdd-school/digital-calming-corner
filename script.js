@@ -323,7 +323,7 @@ backToZonesButton.addEventListener("click", function() {
 });
 function handleStrategyScreenBack(section, zone, feeling) {
     if (section.classList.contains("strategy-detail-view")) {
-        showZoneStrategies(zone, feeling);
+        showZoneStrategies(zone, activeStrategyFeelings[zone] || feeling);
         return;
     }
     section.hidden = true;
@@ -1169,16 +1169,41 @@ function createStrategyIllustration(label, className) {
     return image;
 }
 
+const activeStrategyFeelings = {};
+
+function getStrategyHeading(zone, feeling, defaultHeading) {
+    if (zone === "green") return defaultHeading;
+    const feelingText = {
+        "Sad": "sad",
+        "Tired": "tired",
+        "Sick": "sick",
+        "Bored": "bored",
+        "Disappointed": "disappointed",
+        "Frustrated": "frustrated",
+        "Worried": "worried",
+        "Silly": "silly",
+        "Excited": "excited",
+        "Angry": "angry",
+        "Terrified": "terrified",
+        "Elated": "elated",
+        "Out of Control": "out of control"
+    };
+    const selectedFeeling = feelingText[feeling];
+    return selectedFeeling ? "When I feel " + selectedFeeling + ", I can..." : defaultHeading;
+}
+
 function showZoneStrategies(zone, feeling) {
     const config = zoneStrategySets[zone];
     if (!config) return;
+    activeStrategyFeelings[zone] = feeling;
+    const heading = getStrategyHeading(zone, feeling, config.heading);
 
     zoneFeelings.hidden = true;
     [blueSupport, greenSupport, yellowSupport, redSupport].forEach(section => section.hidden = true);
     config.section.hidden = false;
     config.section.classList.remove("strategy-detail-view");
     config.progress.textContent = "";
-    config.title.textContent = config.heading;
+    config.title.textContent = heading;
     config.question.textContent = "";
     const previousInstructionAudio = config.section.querySelector(".strategy-instruction-audio");
     if (previousInstructionAudio) previousInstructionAudio.remove();
@@ -1192,7 +1217,7 @@ function showZoneStrategies(zone, feeling) {
         // On the strategy-list screen the question is intentionally blank, so
         // read the heading and available choices. On a detail screen, read its guidance.
         const detailText = config.question.textContent.trim();
-        const listText = config.heading + " " +
+        const listText = heading + " " +
             config.strategies.map(([, label]) => label).join(". ");
         speakCalmingInstruction(detailText || listText, instructionAudio);
     });
