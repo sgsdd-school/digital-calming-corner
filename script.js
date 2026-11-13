@@ -359,11 +359,169 @@ function unsureButton(label,fn){
  const text=document.createElement("span");text.className="zone-feeling-label";text.textContent=label;b.appendChild(text);
  b.addEventListener("click",fn);unsureOptions.appendChild(b);
 }
-function showUnsureSupport(){document.querySelector(".calming-header").classList.add("compact");document.querySelector(".zones-grid").hidden=true;zoneFeelings.hidden=true;blueSupport.hidden=true;greenSupport.hidden=true;yellowSupport.hidden=true;redSupport.hidden=true;unsureSupport.hidden=false;unsureProgress.textContent="Explore at your own pace";unsureTitle.textContent="It is okay not to know";unsureQuestion.textContent="Sometimes it is hard to name a feeling. Try an activity just to notice more about yourself. You do not have to choose a zone. Take your time — activities can take 1–3 minutes. If you finish before others, choose another activity or repeat one you liked. There is no need to rush.";unsureResult.hidden=true;unsureOptions.replaceChildren();["My body feels tired","My body feels full of energy","My body feels tense","My body feels comfortable","My thoughts feel busy","I am not sure what I notice"].forEach(v=>unsureButton(v,()=>showUnsureActivities(v)));}
-function showUnsureActivities(note){unsureProgress.textContent="Choose an activity";unsureTitle.textContent="Thank you for noticing";unsureQuestion.textContent="You noticed: "+note+". Choose one activity that feels okay.";unsureResult.hidden=true;unsureOptions.replaceChildren();unsureActivities.forEach((a,i)=>unsureButton(a[0],()=>runUnsureActivity(i)));}
-function runUnsureActivity(i){const a=unsureActivities[i];unsureProgress.textContent="Your activity";unsureTitle.textContent=a[1];unsureQuestion.textContent=a[2];unsureResult.hidden=false;unsureResult.textContent="When you are ready, check in. You do not need to feel different.";unsureOptions.replaceChildren();unsureButton("I have finished — check in",showUnsureCheckIn);}
-function showUnsureCheckIn(){unsureProgress.textContent="Check in with yourself";unsureTitle.textContent="What do you notice now?";unsureQuestion.textContent="Do you have a better idea of how you feel?";unsureResult.hidden=true;unsureOptions.replaceChildren();[["Yes, I have an idea","know"],["A little, but I am still unsure","little"],["I am still not sure","unsure"]].forEach(([label,v])=>unsureButton(label,()=>showUnsureNext(v)));}
-function showUnsureNext(v){unsureOptions.replaceChildren();unsureResult.hidden=false;if(v==="know"){unsureTitle.textContent="You noticed something about yourself";unsureQuestion.textContent="If you want, go back and choose the zone or feeling that feels closest. You can also continue with your day.";unsureResult.textContent="You do not have to choose a zone.";unsureButton("Choose a zone",()=>{unsureSupport.hidden=true;document.querySelector(".zones-grid").hidden=false;});}else{unsureTitle.textContent="It is okay to still be unsure";unsureQuestion.textContent="Would you like to try a different activity, or take a break?";unsureResult.textContent="Learning about yourself takes time.";unsureButton("Try another activity",()=>showUnsureActivities("I am still exploring"));unsureButton("Take a break",()=>{unsureTitle.textContent="Take your time";unsureQuestion.textContent="You can pause here, return to class, or talk to someone you trust.";unsureOptions.replaceChildren();});}}
+const unsureQuestionAudioButton = document.getElementById("unsure-question-audio-button");
+let unsureQuestionIndex = 0;
+let unsureAnswers = [];
+
+const unsureQuestionSet = [
+    {
+        question: "How does your body feel right now?",
+        answers: [
+            { text: "My body feels tired. I have little energy.", zone: "blue", image: "1F62A" },
+            { text: "My body feels comfortable. I have enough energy.", zone: "green", image: "1F60C" },
+            { text: "My body feels full of energy. I want to move!", zone: "yellow", image: "1F929" },
+            { text: "My body feels so full of energy that it is hard to control.", zone: "red", image: "1F635" }
+        ]
+    },
+    {
+        question: "How do you feel inside?",
+        answers: [
+            { text: "I feel sad, lonely or low.", zone: "blue", image: "1F622" },
+            { text: "I feel happy, calm or content.", zone: "green", image: "1F60A" },
+            { text: "I feel worried, frustrated, silly or very excited.", zone: "yellow", image: "1F61F" },
+            { text: "I feel extremely angry, frightened or overwhelmed.", zone: "red", image: "1F620" }
+        ]
+    },
+    {
+        question: "What is it like to pay attention right now?",
+        answers: [
+            { text: "It is hard to concentrate because I feel tired or slow.", zone: "blue", image: "1F62A" },
+            { text: "I can listen, think and learn.", zone: "green", image: "1F9D0" },
+            { text: "My thoughts are racing. I find it hard to sit still.", zone: "yellow", image: "1F4AD" },
+            { text: "Everything feels too much. I find it very hard to think or listen.", zone: "red", image: "1F630" }
+        ]
+    },
+    {
+        question: "Which description feels closest to you overall right now?",
+        answers: [
+            { text: "I feel tired or low on energy, and I need a gentle start.", zone: "blue", image: "1F62A" },
+            { text: "I feel comfortable and ready to learn.", zone: "green", image: "1F60C" },
+            { text: "I have lots of energy and need help slowing down.", zone: "yellow", image: "1F929" },
+            { text: "I feel overwhelmed and need help to settle.", zone: "red", image: "1F630" }
+        ]
+    }
+];
+
+const unsureZoneDetails = {
+    blue: { name: "Blue Zone", explanation: "Your answers suggest that you might be feeling low on energy." },
+    green: { name: "Green Zone", explanation: "Your answers suggest that you might be feeling comfortable and ready to learn." },
+    yellow: { name: "Yellow Zone", explanation: "Your answers suggest that you might have lots of energy or feel restless." },
+    red: { name: "Red Zone", explanation: "Your answers suggest that things might feel overwhelming right now." }
+};
+
+function speakUnsureText(text, button) {
+    speakCalmingInstruction(text, button);
+}
+
+function showUnsureQuestion(index) {
+    unsureQuestionIndex = index;
+    const item = unsureQuestionSet[index];
+    unsureProgress.textContent = index < 3 ? "Question " + (index + 1) + " of 3" : "One more question";
+    unsureTitle.textContent = "Let's find the zone that feels closest";
+    unsureQuestion.textContent = item.question;
+    unsureQuestionAudioButton.onclick = function() {
+        speakUnsureText(item.question, unsureQuestionAudioButton);
+    };
+    unsureResult.hidden = true;
+    unsureOptions.replaceChildren();
+
+    item.answers.forEach(function(answer) {
+        const card = document.createElement("div");
+        card.className = "unsure-answer-card";
+
+        const selectButton = document.createElement("button");
+        selectButton.type = "button";
+        selectButton.className = "unsure-answer-select";
+        const image = document.createElement("img");
+        image.className = "unsure-answer-image";
+        image.src = "https://raw.githubusercontent.com/hfg-gmuend/openmoji/master/color/svg/" + answer.image + ".svg";
+        image.alt = "";
+        image.setAttribute("aria-hidden", "true");
+        image.draggable = false;
+        const label = document.createElement("span");
+        label.textContent = answer.text;
+        selectButton.append(image, label);
+        selectButton.addEventListener("click", function() {
+            unsureAnswers[index] = answer.zone;
+            if (index < 2) {
+                showUnsureQuestion(index + 1);
+                return;
+            }
+            if (index === 2) {
+                const counts = unsureAnswers.slice(0, 3).reduce((total, zone) => {
+                    total[zone] = (total[zone] || 0) + 1;
+                    return total;
+                }, {});
+                const topCount = Math.max.apply(null, Object.values(counts));
+                const leaders = Object.keys(counts).filter(zone => counts[zone] === topCount);
+                if (topCount >= 2 && leaders.length === 1) {
+                    showUnsureRecommendation(leaders[0]);
+                } else {
+                    showUnsureQuestion(3);
+                }
+                return;
+            }
+            // The fourth answer is an overall check-in and resolves a mixed result.
+            showUnsureRecommendation(answer.zone);
+        });
+
+        const audioButton = document.createElement("button");
+        audioButton.type = "button";
+        audioButton.className = "speech-button unsure-answer-audio";
+        audioButton.setAttribute("aria-label", "Listen to this answer");
+        audioButton.title = "Listen";
+        audioButton.innerHTML = '<span aria-hidden="true">🔊</span>';
+        audioButton.addEventListener("click", function(event) {
+            event.stopPropagation();
+            speakUnsureText(answer.text, audioButton);
+        });
+        card.append(selectButton, audioButton);
+        unsureOptions.appendChild(card);
+    });
+}
+
+function showUnsureRecommendation(zone) {
+    const details = unsureZoneDetails[zone];
+    if (!details) return;
+    unsureProgress.textContent = "Your suggested zone";
+    unsureTitle.textContent = "This might be the zone that fits you best";
+    unsureQuestion.textContent = details.explanation;
+    unsureQuestionAudioButton.onclick = function() {
+        speakUnsureText(unsureTitle.textContent + ". " + unsureQuestion.textContent, unsureQuestionAudioButton);
+    };
+    unsureOptions.replaceChildren();
+    unsureResult.hidden = false;
+    unsureResult.textContent = "You know yourself best. If another zone feels closer, you can choose that one instead.";
+
+    const goButton = document.createElement("button");
+    goButton.type = "button";
+    goButton.className = "blue-support-option unsure-result-button";
+    goButton.textContent = "Go to " + details.name;
+    goButton.addEventListener("click", function() {
+        showZoneFeelings(zone);
+    });
+    const chooseButton = document.createElement("button");
+    chooseButton.type = "button";
+    chooseButton.className = "blue-support-option unsure-result-button";
+    chooseButton.textContent = "Choose a different zone";
+    chooseButton.addEventListener("click", function() {
+        unsureSupport.hidden = true;
+        document.querySelector(".calming-header").classList.remove("compact");
+        document.querySelector(".zones-grid").hidden = false;
+        zoneCards.forEach(card => card.setAttribute("aria-pressed", "false"));
+    });
+    unsureOptions.append(goButton, chooseButton);
+}
+
+function showUnsureSupport() {
+    document.querySelector(".calming-header").classList.add("compact");
+    document.querySelector(".zones-grid").hidden = true;
+    zoneFeelings.hidden = true;
+    [blueSupport, greenSupport, yellowSupport, redSupport].forEach(section => section.hidden = true);
+    unsureSupport.hidden = false;
+    unsureAnswers = [];
+    showUnsureQuestion(0);
+}
 
 const blueSupportFlows = {
  "Sad": {
