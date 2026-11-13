@@ -5,7 +5,7 @@
  <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>Self-Regulation Corner</title>
  <link rel="stylesheet" href="style.css">
- <link rel="stylesheet" href="calming.css?v=20261106-red-note-removed">
+ <link rel="stylesheet" href="calming.css?v=20261113-not-sure-questionnaire">
  <link rel="stylesheet" href="teaching.css">
  <link rel="stylesheet" href="resources/cats.css">
  <link rel="stylesheet" href="resources/number-game.css">
@@ -83,6 +83,14 @@
     <div id="red-support-options" class="blue-support-options"></div>
     <div id="red-support-result" class="blue-support-result" hidden></div>
    </section>
+   <section id="unsure-support" class="blue-support unsure-support" hidden aria-live="polite">
+    <button id="unsure-support-back" class="back-to-zones-button strategy-screen-back" type="button" aria-label="Back to zones">←</button>
+    <div id="unsure-support-progress" class="blue-support-progress"></div>
+    <h3 id="unsure-support-title"></h3>
+    <div class="unsure-question-row"><p id="unsure-support-question"></p><button id="unsure-question-audio-button" class="speech-button instruction-audio-button" type="button" aria-label="Listen to the question" title="Listen"><span aria-hidden="true">🔊</span></button></div>
+    <div id="unsure-support-options" class="blue-support-options"></div>
+    <div id="unsure-support-result" class="blue-support-result" hidden></div>
+   </section>
   </main>
   <main id="chat" hidden><button id="chat-back-button" class="back-to-start-button chat-back-button" type="button">← Back to home</button><div class="message bot-message"><strong>GeorgeBot</strong><p>Hello! 👋 I'm GeorgeBot. Ask me something about Computing!</p></div></main>
   <form id="chat-form" hidden><input type="text" id="user-input" placeholder="Ask GeorgeBot something..." autocomplete="off"><button type="submit" aria-label="Send message">➤</button></form>
@@ -94,7 +102,7 @@
  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0"></script>
  <script src="resources/cats.js"></script>
  <script src="resources/number-game.js"></script>
- <script src="script.js?v=20261106-red-note-removed"></script>
+ <script src="script.js?v=20261113-not-sure-questionnaire"></script>
  <script src="teaching.js"></script>
  <script src="teaching-fix.js"></script>
  <script src="runtime-fix.js"></script>
