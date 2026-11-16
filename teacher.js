@@ -151,6 +151,7 @@
         if (error) throw error;
         teacherToken = token;
         sessionStorage.setItem(TOKEN_KEY, teacherToken);
+        sessionStorage.setItem("self-regulation-teacher-nickname", nickname);
         enterDashboard(nickname);
       } else {
         const { data, error } = await rpc("login_teacher", {
@@ -159,6 +160,7 @@
         if (error) throw error;
         teacherToken = data[0].login_token;
         sessionStorage.setItem(TOKEN_KEY, teacherToken);
+        sessionStorage.setItem("self-regulation-teacher-nickname", data[0].teacher_nickname);
         enterDashboard(data[0].teacher_nickname);
       }
     } catch (error) {
@@ -208,6 +210,7 @@
     stopTimers();
     await rpc("teacher_sign_out", { p_teacher_token: teacherToken });
     sessionStorage.removeItem(TOKEN_KEY);
+    sessionStorage.removeItem("self-regulation-teacher-nickname");
     teacherToken = "";
     currentNickname = "";
     currentSessionId = null;
