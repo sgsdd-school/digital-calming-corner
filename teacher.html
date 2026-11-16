@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#245b83">
+  <title>Teacher Dashboard | Self-Regulation Corner</title>
+  <link rel="stylesheet" href="teacher.css">
+</head>
+<body>
+  <main class="teacher-shell">
+    <header class="teacher-header">
+      <a class="brand" href="./">♥ <span>Self-Regulation Corner</span></a>
+      <span class="teacher-label">Teacher area</span>
+    </header>
+
+    <section id="auth-panel" class="panel auth-panel">
+      <h1 id="auth-title">Teacher sign in</h1>
+      <p id="auth-description">Sign in to start and manage your classroom session.</p>
+      <form id="auth-form">
+        <label>Email address<input id="auth-email" type="email" autocomplete="username" required></label>
+        <label>Password<input id="auth-password" type="password" autocomplete="current-password" minlength="8" required></label>
+        <label id="display-name-wrap" hidden>Your name (optional)<input id="display-name" type="text" autocomplete="name" maxlength="80"></label>
+        <button class="primary-button" id="auth-submit" type="submit">Sign in</button>
+      </form>
+      <button class="text-button" id="auth-mode-toggle" type="button">Need a teacher account? Create one</button>
+      <p id="auth-message" class="message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="dashboard" hidden>
+      <div class="welcome-row">
+        <div><p class="eyebrow">TEACHER DASHBOARD</p><h1 id="welcome-title">Welcome</h1></div>
+        <button class="text-button" id="sign-out" type="button">Sign out</button>
+      </div>
+      <nav class="tabs" aria-label="Teacher dashboard sections">
+        <button class="tab active" data-tab="session" type="button" aria-selected="true">Session</button>
+        <button class="tab" data-tab="results" type="button" aria-selected="false">Class results</button>
+      </nav>
+
+      <section id="session-tab" class="panel tab-panel">
+        <div class="section-heading"><div><h2>Classroom session</h2><p>Start a session and let students join using the QR code.</p></div><span id="session-status" class="status-pill">No active session</span></div>
+        <div id="no-session">
+          <button class="primary-button" id="start-session" type="button">Start a new session</button>
+        </div>
+        <div id="active-session" hidden>
+          <div class="session-grid">
+            <div class="qr-panel">
+              <p class="eyebrow">STUDENTS SCAN TO JOIN</p>
+              <div id="session-qr" class="qr-code" aria-label="Session QR code"></div>
+              <p class="small-note">Keep this page open while students join.</p>
+              <button class="secondary-button" id="fullscreen-qr" type="button">Show QR code full screen</button>
+            </div>
+            <div class="session-info">
+              <p class="eyebrow">PARTICIPATION</p>
+              <strong id="participant-total" class="participant-total">0</strong>
+              <span>students have checked in</span>
+              <p class="small-note">Only the total is shown here. Individual student choices are not displayed.</p>
+              <button class="danger-button" id="end-session" type="button">End session</button>
+            </div>
+          </div>
+        </div>
+        <p id="session-message" class="message" role="status" aria-live="polite"></p>
+      </section>
+
+      <section id="results-tab" class="panel tab-panel" hidden>
+        <div class="section-heading"><div><h2>Class results</h2><p>Anonymous live overview of the current session.</p></div><span class="live-indicator">● Live</span></div>
+        <div id="results-empty" class="empty-state">Start a session to see your class results.</div>
+        <div id="results-content" hidden>
+          <div class="result-total"><strong id="results-total">0</strong><span>students checked in</span></div>
+          <div class="zone-results">
+            <div class="zone-result blue"><div><span>Blue Zone</span><strong id="count-blue">0</strong></div><div class="bar-track"><span id="bar-blue"></span></div></div>
+            <div class="zone-result green"><div><span>Green Zone</span><strong id="count-green">0</strong></div><div class="bar-track"><span id="bar-green"></span></div></div>
+            <div class="zone-result yellow"><div><span>Yellow Zone</span><strong id="count-yellow">0</strong></div><div class="bar-track"><span id="bar-yellow"></span></div></div>
+            <div class="zone-result red"><div><span>Red Zone</span><strong id="count-red">0</strong></div><div class="bar-track"><span id="bar-red"></span></div></div>
+          </div>
+          <p class="small-note">Results show totals only. No names, personal answers, or individual student histories are stored.</p>
+        </div>
+      </section>
+      <footer class="teacher-footer">Session data is temporary and is deleted when you end the session.</footer>
+    </section>
+  </main>
+
+  <div id="qr-overlay" class="qr-overlay" hidden>
+    <button id="close-fullscreen-qr" class="close-qr" type="button" aria-label="Close full-screen QR code">✕</button>
+    <p>Scan to join Self-Regulation Corner</p>
+    <div id="fullscreen-qr-code"></div>
+    <span>Open your camera and point it at the QR code.</span>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+  <script src="supabase-config.js"></script>
+  <script src="teacher.js"></script>
+</body>
+</html>
