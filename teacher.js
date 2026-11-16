@@ -8,18 +8,23 @@
   const authDescription = document.getElementById("auth-description");
   const authMessage = document.getElementById("auth-message");
   const authModeToggle = document.getElementById("auth-mode-toggle");
-  const displayNameWrap = document.getElementById("display-name-wrap");
   const authSubmit = document.getElementById("auth-submit");
   const sessionMessage = document.getElementById("session-message");
+  const TOKEN_KEY = "self-regulation-teacher-token";
   let supabaseClient;
   let isSignUp = false;
   let currentSessionId = null;
+  let currentNickname = "";
   let refreshHandle = null;
   let heartbeatHandle = null;
+  let teacherToken = sessionStorage.getItem(TOKEN_KEY) || "";
 
   function message(target, text, isError = true) {
     target.textContent = text || "";
     target.style.color = isError ? "#a33434" : "#24834b";
+  }
+  function rpc(name, args) {
+    return supabaseClient.rpc(name, args);
   }
   function setTab(tab) {
     document.querySelectorAll(".tab").forEach(button => {
@@ -36,10 +41,9 @@
   function setAuthMode(signUp) {
     isSignUp = signUp;
     authTitle.textContent = signUp ? "Create teacher account" : "Teacher sign in";
-    authDescription.textContent = signUp ? "Create an account using your school email address." : "Sign in to start and manage your classroom session.";
+    authDescription.textContent = signUp ? "Choose any nickname and password." : "Sign in with your nickname and password.";
     authSubmit.textContent = signUp ? "Create account" : "Sign in";
-    authModeToggle.textContent = signUp ? "Already have an account? Sign in" : "Need a teacher account? Create one";
-    displayNameWrap.hidden = !signUp;
+    authModeToggle.textContent = signUp ? "Already have an account? Sign in" : "Need an account? Create one";
     document.getElementById("auth-password").autocomplete = signUp ? "new-password" : "current-password";
     message(authMessage, "");
   }
@@ -55,23 +59,18 @@
   }
 
   async function loadCurrentSession() {
-    const { data: userData } = await supabaseClient.auth.getUser();
-    if (!userData.user) return;
-    const { data, error } = await supabaseClient
-      .from("sessions")
-      .select("id,created_at,expires_at,ended_at,last_activity_at")
-      .eq("teacher_id", userData.user.id)
-      .is("ended_at", null)
-      .gt("expires_at", new Date().toISOString())
-      .gt("last_activity_at", new Date(Date.now() - 30 * 60 * 1000).toISOString())
-      .order("created_at", { ascending: false })
-      .limit(1)
-      .maybeSingle();
+    const { data, error } = await rpc("teacher_current_session", { p_teacher_token: teacherToken });
     if (error) throw error;
-    if (data) showActiveSession(data.id);
+    if (data && data.length) showActiveSession(data[0].id);
     else showNoSession();
   }
 
+  function stopTimers() {
+    if (refreshHandle) clearInterval(refreshHandle);
+    if (heartbeatHandle) clearInterval(heartbeatHandle);
+    refreshHandle = null;
+    heartbeatHandle = null;
+  }
   function showNoSession() {
     currentSessionId = null;
     document.getElementById("no-session").hidden = false;
@@ -80,12 +79,8 @@
     document.getElementById("results-empty").hidden = false;
     document.getElementById("results-content").hidden = true;
     document.getElementById("participant-total").textContent = "0";
-    if (refreshHandle) clearInterval(refreshHandle);
-    if (heartbeatHandle) clearInterval(heartbeatHandle);
-    refreshHandle = null;
-    heartbeatHandle = null;
+    stopTimers();
   }
-
   function showActiveSession(sessionId) {
     currentSessionId = sessionId;
     document.getElementById("no-session").hidden = true;
@@ -97,26 +92,29 @@
     document.getElementById("results-empty").hidden = true;
     document.getElementById("results-content").hidden = false;
     refreshResults();
-    if (refreshHandle) clearInterval(refreshHandle);
+    stopTimers();
     refreshHandle = setInterval(refreshResults, 5000);
-    if (heartbeatHandle) clearInterval(heartbeatHandle);
     heartbeatHandle = setInterval(async () => {
       if (!currentSessionId) return;
-      const { data, error } = await supabaseClient.rpc("keep_session_alive", { p_session_id: currentSessionId });
+      const { data, error } = await rpc("teacher_keep_session_alive", {
+        p_teacher_token: teacherToken, p_session_id: currentSessionId
+      });
       if (error || data !== true) {
         showNoSession();
-        message(sessionMessage, "This session has expired after inactivity. Start a new session when you are ready.");
+        message(sessionMessage, "This session expired after inactivity. Start a new session when ready.");
       }
     }, 60 * 1000);
   }
 
   async function refreshResults() {
     if (!currentSessionId || !supabaseClient) return;
-    const { data, error } = await supabaseClient.rpc("get_session_results", { p_session_id: currentSessionId });
+    const { data, error } = await rpc("teacher_get_session_results", {
+      p_teacher_token: teacherToken, p_session_id: currentSessionId
+    });
     if (error) {
-      if (error.code === "P0002") {
+      if (error.code === "P0002" || error.code === "28000") {
         showNoSession();
-        message(sessionMessage, "This session has ended or expired.");
+        message(sessionMessage, "This session has ended or expired. Please sign in again if needed.");
       }
       return;
     }
@@ -131,52 +129,51 @@
     });
   }
 
+  function enterDashboard(nickname) {
+    currentNickname = nickname;
+    authPanel.hidden = true;
+    dashboard.hidden = false;
+    document.getElementById("welcome-title").textContent = "Welcome, " + nickname;
+    loadCurrentSession().catch(error => message(sessionMessage, error.message || "Could not load your session."));
+  }
+
   authForm.addEventListener("submit", async event => {
     event.preventDefault();
     message(authMessage, "");
     authSubmit.disabled = true;
     try {
-      const email = document.getElementById("auth-email").value.trim();
+      const nickname = document.getElementById("auth-nickname").value.trim();
       const password = document.getElementById("auth-password").value;
       if (isSignUp) {
-        const displayName = document.getElementById("display-name").value.trim();
-        const { data, error } = await supabaseClient.auth.signUp({
-          email, password, options: { data: { display_name: displayName || null } }
+        const { data: token, error } = await rpc("register_teacher", {
+          p_nickname: nickname, p_password: password
         });
         if (error) throw error;
-        if (!data.session) {
-          message(authMessage, "Account created. Check your school email to confirm it, then sign in.", false);
-          setAuthMode(false);
-        } else {
-          await showDashboard(data.user);
-        }
+        teacherToken = token;
+        sessionStorage.setItem(TOKEN_KEY, teacherToken);
+        enterDashboard(nickname);
       } else {
-        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+        const { data, error } = await rpc("login_teacher", {
+          p_nickname: nickname, p_password: password
+        });
         if (error) throw error;
-        await showDashboard(data.user);
+        teacherToken = data[0].login_token;
+        sessionStorage.setItem(TOKEN_KEY, teacherToken);
+        enterDashboard(data[0].teacher_nickname);
       }
     } catch (error) {
-      message(authMessage, error.message || "Unable to sign in.");
+      message(authMessage, error.message || "Unable to create account or sign in.");
     } finally {
       authSubmit.disabled = false;
     }
   });
-
-  async function showDashboard(user) {
-    authPanel.hidden = true;
-    dashboard.hidden = false;
-    const name = user.user_metadata?.display_name || user.email || "Teacher";
-    document.getElementById("welcome-title").textContent = "Welcome, " + name;
-    try { await loadCurrentSession(); }
-    catch (error) { message(sessionMessage, error.message || "Could not load your session."); }
-  }
 
   document.getElementById("start-session").addEventListener("click", async () => {
     const button = document.getElementById("start-session");
     button.disabled = true;
     message(sessionMessage, "");
     try {
-      const { data, error } = await supabaseClient.rpc("start_session");
+      const { data, error } = await rpc("teacher_start_session", { p_teacher_token: teacherToken });
       if (error) throw error;
       showActiveSession(data);
     } catch (error) {
@@ -186,7 +183,9 @@
 
   document.getElementById("end-session").addEventListener("click", async () => {
     if (!currentSessionId || !window.confirm("End this session? All anonymous participation data for it will be permanently deleted.")) return;
-    const { error } = await supabaseClient.rpc("end_session", { p_session_id: currentSessionId });
+    const { error } = await rpc("teacher_end_session", {
+      p_teacher_token: teacherToken, p_session_id: currentSessionId
+    });
     if (error) {
       message(sessionMessage, error.message || "Could not end the session.");
       return;
@@ -206,9 +205,12 @@
     document.getElementById("qr-overlay").hidden = true;
   });
   document.getElementById("sign-out").addEventListener("click", async () => {
-    if (refreshHandle) clearInterval(refreshHandle);
-    if (heartbeatHandle) clearInterval(heartbeatHandle);
-    await supabaseClient.auth.signOut();
+    stopTimers();
+    await rpc("teacher_sign_out", { p_teacher_token: teacherToken });
+    sessionStorage.removeItem(TOKEN_KEY);
+    teacherToken = "";
+    currentNickname = "";
+    currentSessionId = null;
     dashboard.hidden = true;
     authPanel.hidden = false;
     setAuthMode(false);
@@ -220,14 +222,18 @@
       return;
     }
     supabaseClient = window.supabase.createClient(config.url, config.publishableKey);
-    const { data } = await supabaseClient.auth.getSession();
-    if (data.session) await showDashboard(data.session.user);
-    supabaseClient.auth.onAuthStateChange((_event, session) => {
-      if (!session) {
-        dashboard.hidden = true;
-        authPanel.hidden = false;
+    if (teacherToken) {
+      try {
+        const { data, error } = await rpc("teacher_current_session", { p_teacher_token: teacherToken });
+        if (error) throw error;
+        const nickname = sessionStorage.getItem("self-regulation-teacher-nickname") || "Teacher";
+        enterDashboard(nickname);
+        if (data && data.length) showActiveSession(data[0].id);
+      } catch (_error) {
+        sessionStorage.removeItem(TOKEN_KEY);
+        teacherToken = "";
       }
-    });
+    }
   }
   init();
 })();
