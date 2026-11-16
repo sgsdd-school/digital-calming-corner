@@ -18,9 +18,9 @@
       <h1 id="auth-title">Teacher sign in</h1>
       <p id="auth-description">Sign in to start and manage your classroom session.</p>
       <form id="auth-form">
-        <label>Email address<input id="auth-email" type="email" autocomplete="username" required></label>
-        <label>Password<input id="auth-password" type="password" autocomplete="current-password" minlength="8" required></label>
-        <label id="display-name-wrap" hidden>Your name (optional)<input id="display-name" type="text" autocomplete="name" maxlength="80"></label>
+        <label>Nickname<input id="auth-nickname" type="text" autocomplete="username" minlength="1" maxlength="40" required></label>
+        <label>Password<input id="auth-password" type="password" autocomplete="current-password" minlength="1" required></label>
+        <label id="display-name-wrap" hidden></label>
         <button class="primary-button" id="auth-submit" type="submit">Sign in</button>
       </form>
       <button class="text-button" id="auth-mode-toggle" type="button">Need a teacher account? Create one</button>
