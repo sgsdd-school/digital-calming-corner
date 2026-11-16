@@ -235,6 +235,12 @@ function showZoneFeelings(zone) {
     const details = zoneFeelingExamples[zone];
     if (!details) return;
 
+    // Record only the selected zone for an active teacher session. The backend
+    // stores a one-way hash of the temporary participation token, not a name.
+    if (typeof window.submitStudentZone === "function") {
+        window.submitStudentZone(zone);
+    }
+
     // Treat every zone selection as a clean screen transition. This prevents
     // previously rendered feeling/strategy panels from remaining in layout.
     const zonesGrid = document.querySelector(".zones-grid");
