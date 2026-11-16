@@ -40,6 +40,7 @@
    <button id="back-to-start-button" class="back-to-start-button" type="button">← Back</button>
   </main>
   <main id="calming-corner" class="calming-corner">
+   <p id="student-session-status" class="student-session-status" hidden role="status" aria-live="polite"></p>
    <div class="calming-header"><div class="calming-intro-audio"><div class="calming-intro-copy"><p>How are you feeling right now?</p><span>Choose the zone that feels closest to you.</span></div><button id="calming-intro-audio-button" class="speech-button" type="button" aria-label="Listen to the introduction" title="Listen"><span aria-hidden="true">🔊</span></button></div></div>
    <div class="zones-grid" aria-label="Choose how you are feeling">
     <button class="zone-card zone-blue" type="button" data-zone="blue" aria-pressed="false"><strong>BLUE ZONE</strong><span>Low energy</span><span>Low alertness</span></button>
@@ -95,6 +96,9 @@
   <main id="chat" hidden><button id="chat-back-button" class="back-to-start-button chat-back-button" type="button">← Back to home</button><div class="message bot-message"><strong>GeorgeBot</strong><p>Hello! 👋 I'm GeorgeBot. Ask me something about Computing!</p></div></main>
   <form id="chat-form" hidden><input type="text" id="user-input" placeholder="Ask GeorgeBot something..." autocomplete="off"><button type="submit" aria-label="Send message">➤</button></form>
  </div>
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+ <script src="supabase-config.js"></script>
+ <script src="student-session.js"></script>
  <script src="knowledge.js"></script>
  <script src="knowledge/year4/the-internet/knowledge.js"></script>
  <script src="knowledge/extra-student-questions.js"></script>
@@ -102,7 +106,7 @@
  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.1.0"></script>
  <script src="resources/cats.js"></script>
  <script src="resources/number-game.js"></script>
- <script src="script.js?v=20261113-not-sure-questionnaire"></script>
+ <script src="script.js?v=20261116-session-link"></script>
  <script src="teaching.js"></script>
  <script src="teaching-fix.js"></script>
  <script src="runtime-fix.js"></script>
