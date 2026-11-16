@@ -272,3 +272,8 @@
  .unsure-answer-image{height:76px;max-width:88px}
  .unsure-answer-audio{width:36px;height:36px}
 }
+
+
+/* Temporary status banner for students who joined through a teacher QR code. */
+.student-session-status{max-width:720px;margin:0 auto 16px;padding:10px 14px;border-radius:12px;background:#eaf3fa;color:#245b83;text-align:center;font-size:14px;font-weight:650;line-height:1.4}
+.student-session-status[hidden]{display:none!important}
