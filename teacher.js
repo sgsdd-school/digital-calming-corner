@@ -15,6 +15,7 @@
   let isSignUp = false;
   let currentSessionId = null;
   let refreshHandle = null;
+  let heartbeatHandle = null;
 
   function message(target, text, isError = true) {
     target.textContent = text || "";
@@ -58,10 +59,11 @@
     if (!userData.user) return;
     const { data, error } = await supabaseClient
       .from("sessions")
-      .select("id,created_at,expires_at,ended_at")
+      .select("id,created_at,expires_at,ended_at,last_activity_at")
       .eq("teacher_id", userData.user.id)
       .is("ended_at", null)
       .gt("expires_at", new Date().toISOString())
+      .gt("last_activity_at", new Date(Date.now() - 30 * 60 * 1000).toISOString())
       .order("created_at", { ascending: false })
       .limit(1)
       .maybeSingle();
@@ -79,7 +81,9 @@
     document.getElementById("results-content").hidden = true;
     document.getElementById("participant-total").textContent = "0";
     if (refreshHandle) clearInterval(refreshHandle);
+    if (heartbeatHandle) clearInterval(heartbeatHandle);
     refreshHandle = null;
+    heartbeatHandle = null;
   }
 
   function showActiveSession(sessionId) {
@@ -95,6 +99,15 @@
     refreshResults();
     if (refreshHandle) clearInterval(refreshHandle);
     refreshHandle = setInterval(refreshResults, 5000);
+    if (heartbeatHandle) clearInterval(heartbeatHandle);
+    heartbeatHandle = setInterval(async () => {
+      if (!currentSessionId) return;
+      const { data, error } = await supabaseClient.rpc("keep_session_alive", { p_session_id: currentSessionId });
+      if (error || data !== true) {
+        showNoSession();
+        message(sessionMessage, "This session has expired after inactivity. Start a new session when you are ready.");
+      }
+    }, 60 * 1000);
   }
 
   async function refreshResults() {
@@ -194,6 +207,7 @@
   });
   document.getElementById("sign-out").addEventListener("click", async () => {
     if (refreshHandle) clearInterval(refreshHandle);
+    if (heartbeatHandle) clearInterval(heartbeatHandle);
     await supabaseClient.auth.signOut();
     dashboard.hidden = true;
     authPanel.hidden = false;
