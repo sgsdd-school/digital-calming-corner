@@ -148,7 +148,6 @@
     dashboard.hidden = false;
     document.getElementById("sign-out").hidden = false;
     document.querySelector(".header-app-link").hidden = false;
-    document.getElementById("welcome-title").textContent = "Welcome, " + nickname;
     loadCurrentSession().catch(error => message(sessionMessage, error.message || "Could not load your session."));
   }
 
