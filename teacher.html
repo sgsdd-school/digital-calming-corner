@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#245b83">
   <title>Teacher Dashboard | Self-Regulation Corner</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg?v=20261117">
   <link rel="stylesheet" href="teacher.css">
 </head>
 <body>
   <main class="teacher-shell">
     <header class="teacher-header">
       <a class="brand" href="./">♥ <span>Self-Regulation Corner</span></a>
-      <span class="teacher-label">Teacher area</span>
+      <button class="text-button header-sign-out" id="sign-out" type="button" hidden>Sign out</button>
     </header>
 
     <section id="auth-panel" class="panel auth-panel">
@@ -30,7 +31,6 @@
     <section id="dashboard" hidden>
       <div class="welcome-row">
         <div><p class="eyebrow">TEACHER DASHBOARD</p><h1 id="welcome-title">Welcome</h1></div>
-        <button class="text-button" id="sign-out" type="button">Sign out</button>
       </div>
       <nav class="tabs" aria-label="Teacher dashboard sections">
         <button class="tab active" data-tab="session" type="button" aria-selected="true">Session</button>
