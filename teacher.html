@@ -39,6 +39,7 @@
         <button class="tab active" data-tab="session" type="button" aria-selected="true">Session</button>
         <button class="tab" data-tab="results" type="button" aria-selected="false">Class results</button>
         <button class="tab" data-tab="zones" type="button" aria-selected="false">The zones</button>
+        <button class="tab" data-tab="resources" type="button" aria-selected="false">Resources</button>
       </nav>
 
       <section id="session-tab" class="panel tab-panel">
@@ -89,7 +90,16 @@
           <article class="zone-guide-card yellow"><span class="zone-guide-dot"></span><div><h3>Yellow Zone</h3><p class="zone-guide-state">High energy · High alertness</p><p>A child may feel excited, worried, frustrated, restless, or fidgety.</p></div></article>
           <article class="zone-guide-card red"><span class="zone-guide-dot"></span><div><h3>Red Zone</h3><p class="zone-guide-state">Very high energy · Overwhelmed</p><p>A child may feel very angry, frightened, out of control, or overwhelmed.</p></div></article>
         </div>
-        <p class="zones-guide-note">There is no “bad” zone. The colors are simply a way to talk about feelings and what might help.</p>
+        <article class="zone-guide-card unsure-zone"><span class="zone-guide-dot"></span><div><h3>Gray · Not Sure</h3><p class="zone-guide-state">Unsure how I feel · Need help noticing</p><p>This is not a fifth emotional zone. It is a support option for a child who cannot yet identify their feeling or energy level. The student app guides the child through a few simple questions, then suggests a color zone that may be the closest match. The child can choose a different zone if the suggestion does not feel right.</p></div></article>
+        <p class="zones-guide-note">There is no “bad” zone. The colors are simply a way to talk about feelings and what might help. Gray is there for moments when a child is not sure yet.</p>
+      </section>
+      <section id="resources-tab" class="panel tab-panel resources-panel" hidden>
+        <div class="section-heading"><div><h2>Resources</h2><p>Book used as a guide for understanding the zones.</p></div></div>
+        <div class="book-embed-wrap">
+          <iframe title="Zones of Regulation guide book" src="https://drive.google.com/file/d/1DzJ2GK09pJC7O6sAVRnZaWf-UzV9R-MV/preview" allow="autoplay" loading="lazy"></iframe>
+        </div>
+        <p class="small-note">If the book does not appear, check that its Google Drive sharing settings allow the teachers viewing this dashboard to access it.</p>
+        <p><a class="resource-link" href="https://drive.google.com/file/d/1DzJ2GK09pJC7O6sAVRnZaWf-UzV9R-MV/view" target="_blank" rel="noopener">Open the book in Google Drive ↗</a></p>
       </section>
       <footer class="teacher-footer">Session data is temporary and is deleted when you end the session.</footer>
     </section>
