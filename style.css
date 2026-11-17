@@ -294,3 +294,8 @@ body { font-family: Arial, Helvetica, sans-serif; background: #f5f7fa; color: #0
 
 /* The heart is a brand mark, not a navigation control. */
 .chat-header>.heart-logo{cursor:default;pointer-events:none}
+
+/* Shared school-branded Self-Regulation Corner background */
+body{position:relative;isolation:isolate;background:#f7f8fb}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:url("assets/self-regulation-background.svg") no-repeat left bottom/ min(100vw,1500px) auto;opacity:.13}
+.chat-container{background-color:rgba(255,255,255,.94);backdrop-filter:blur(1px)}
