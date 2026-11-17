@@ -34,6 +34,7 @@
     });
     document.getElementById("session-tab").hidden = tab !== "session";
     document.getElementById("results-tab").hidden = tab !== "results";
+    document.getElementById("zones-tab").hidden = tab !== "zones";
     if (tab === "results") refreshResults();
   }
   document.querySelectorAll(".tab").forEach(button => button.addEventListener("click", () => setTab(button.dataset.tab)));
