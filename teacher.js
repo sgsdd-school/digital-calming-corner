@@ -134,6 +134,7 @@
     currentNickname = nickname;
     authPanel.hidden = true;
     dashboard.hidden = false;
+    document.getElementById("sign-out").hidden = false;
     document.getElementById("welcome-title").textContent = "Welcome, " + nickname;
     loadCurrentSession().catch(error => message(sessionMessage, error.message || "Could not load your session."));
   }
@@ -216,6 +217,7 @@
     currentNickname = "";
     currentSessionId = null;
     dashboard.hidden = true;
+    document.getElementById("sign-out").hidden = true;
     authPanel.hidden = false;
     setAuthMode(false);
   });
