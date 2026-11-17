@@ -49,16 +49,7 @@
     document.getElementById("books-resource").hidden = selected !== "books";
     document.getElementById("videos-resource").hidden = selected !== "videos";
   }));
-  document.querySelectorAll(".video-preview-toggle").forEach(button => button.addEventListener("click", () => {
-    const player = document.getElementById(button.getAttribute("aria-controls"));
-    const opening = player.hidden;
-    player.hidden = !opening;
-    button.setAttribute("aria-expanded", String(opening));
-    button.textContent = opening ? "Hide video" : "Watch video";
-    const frame = player.querySelector("iframe");
-    if (opening && !frame.src) frame.src = frame.dataset.videoSrc;
-    if (!opening) frame.src = "";
-  }));
+
 
   function setAuthMode(signUp) {
     isSignUp = signUp;
