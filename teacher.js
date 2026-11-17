@@ -39,6 +39,16 @@
     if (tab === "results") refreshResults();
   }
   document.querySelectorAll(".tab").forEach(button => button.addEventListener("click", () => setTab(button.dataset.tab)));
+  document.querySelectorAll(".resource-tab").forEach(button => button.addEventListener("click", () => {
+    const selected = button.dataset.resource;
+    document.querySelectorAll(".resource-tab").forEach(tab => {
+      const active = tab === button;
+      tab.classList.toggle("active", active);
+      tab.setAttribute("aria-selected", String(active));
+    });
+    document.getElementById("books-resource").hidden = selected !== "books";
+    document.getElementById("videos-resource").hidden = selected !== "videos";
+  }));
 
   function setAuthMode(signUp) {
     isSignUp = signUp;
