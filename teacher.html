@@ -35,6 +35,7 @@
       <nav class="tabs" aria-label="Teacher dashboard sections">
         <button class="tab active" data-tab="session" type="button" aria-selected="true">Session</button>
         <button class="tab" data-tab="results" type="button" aria-selected="false">Class results</button>
+        <button class="tab" data-tab="zones" type="button" aria-selected="false">The zones</button>
       </nav>
 
       <section id="session-tab" class="panel tab-panel">
@@ -75,6 +76,17 @@
           </div>
           <p class="small-note">Results show totals only. No names, personal answers, or individual student histories are stored.</p>
         </div>
+      </section>
+      <section id="zones-tab" class="panel tab-panel zones-guide" hidden>
+        <div class="section-heading"><div><h2>Understanding the zones</h2><p>A quick guide to the four color zones used in the student corner.</p></div></div>
+        <p class="zones-guide-intro">The zones help children notice their energy and alertness. They are not labels for good or bad behavior. A child can move between zones, and the aim is to notice what they need.</p>
+        <div class="zone-guide-grid">
+          <article class="zone-guide-card blue"><span class="zone-guide-dot"></span><div><h3>Blue Zone</h3><p class="zone-guide-state">Low energy · Low alertness</p><p>A child may feel tired, slow, sleepy, or low in energy.</p></div></article>
+          <article class="zone-guide-card green"><span class="zone-guide-dot"></span><div><h3>Green Zone</h3><p class="zone-guide-state">Just right · Calm and focused</p><p>A child may feel calm, settled, ready to learn, and able to focus.</p></div></article>
+          <article class="zone-guide-card yellow"><span class="zone-guide-dot"></span><div><h3>Yellow Zone</h3><p class="zone-guide-state">High energy · High alertness</p><p>A child may feel excited, worried, frustrated, restless, or fidgety.</p></div></article>
+          <article class="zone-guide-card red"><span class="zone-guide-dot"></span><div><h3>Red Zone</h3><p class="zone-guide-state">Very high energy · Overwhelmed</p><p>A child may feel very angry, frightened, out of control, or overwhelmed.</p></div></article>
+        </div>
+        <p class="zones-guide-note">There is no “bad” zone. The colors are a simple way to talk about feelings and what might help.</p>
       </section>
       <footer class="teacher-footer">Session data is temporary and is deleted when you end the session.</footer>
     </section>
