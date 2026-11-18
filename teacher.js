@@ -36,6 +36,7 @@
     document.getElementById("results-tab").hidden = tab !== "results";
     document.getElementById("zones-tab").hidden = tab !== "zones";
     document.getElementById("resources-tab").hidden = tab !== "resources";
+    document.getElementById("shy-safari-tab").hidden = tab !== "shy-safari";
     if (tab === "results") refreshResults();
   }
   document.querySelectorAll(".tab").forEach(button => button.addEventListener("click", () => setTab(button.dataset.tab)));
