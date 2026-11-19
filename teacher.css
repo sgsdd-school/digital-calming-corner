@@ -110,3 +110,32 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 }
 
 .session-left #active-session[hidden]{display:none!important}
+
+
+/* MacBook-friendly session view: keep the whole QR and Safari activity in view */
+.session-workspace{align-items:start;gap:18px}
+.session-left{gap:12px}
+.session-start-panel{padding:18px 20px}
+.session-start-panel p:not(.eyebrow){margin:6px 0 14px}
+.session-left #active-session[hidden]{display:none!important}
+.session-left #active-session:not([hidden]){display:flex}
+.session-left .qr-panel{padding:14px 14px 12px}
+.session-left .qr-code{margin:4px auto}
+.session-left .qr-code img,.session-left .qr-code canvas{width:min(100%,190px)!important;height:auto!important}
+.session-left .qr-panel .small-note{font-size:12px;margin:5px 0 8px}
+.session-info{padding:12px 18px}
+.session-info .eyebrow{margin-bottom:3px}
+.session-info .participant-total{font-size:36px;line-height:1}
+.session-info>span{font-size:13px}
+.session-info .danger-button{margin-top:8px;padding:9px 14px}
+.session-safari{padding:12px;min-height:0}
+.safari-heading h3{font-size:18px}
+.safari-heading p{margin:3px 0 7px;font-size:12px}
+.safari-session-embed{height:clamp(280px,42vh,390px);min-height:0}
+.safari-session-embed iframe{height:100%;min-height:0}
+@media(max-width:850px){
+ .safari-session-embed{height:48vh;min-height:300px}
+}
+@media(max-width:560px){
+ .safari-session-embed{height:52vh;min-height:280px}
+}
