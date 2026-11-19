@@ -46,3 +46,32 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 .shy-safari-embed iframe{display:block;width:100%;height:100%;border:0;background:#fff}
 .shy-safari-panel .section-heading{align-items:center}
 @media(max-width:650px){.shy-safari-embed{height:75vh;min-height:520px}.shy-safari-panel .section-heading{align-items:flex-start;flex-direction:column}}
+
+
+/* Active session: QR and participation on the left, Shy Safari on the right */
+.session-workspace{display:grid;grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr);gap:22px;align-items:stretch}
+.session-left{display:flex;flex-direction:column;gap:16px;min-width:0}
+.session-left .qr-panel{padding:22px 16px}
+.session-left .qr-code{min-height:0;margin:14px auto}
+.session-left .qr-code img,.session-left .qr-code canvas{width:min(100%,280px)!important;height:auto!important}
+.session-info{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:20px 24px;background:#f7f9fc;border:1px solid #e1e7ef;border-radius:16px;min-width:0}
+.session-info .participant-total{font-size:48px;line-height:1.1;color:#0E204A}
+.session-info>span{font-size:14px;color:#64748b;line-height:1.4}
+.session-info .danger-button{margin-top:16px}
+.session-safari{display:flex;flex-direction:column;min-width:0;min-height:660px;padding:18px;background:#f7f9fc;border:1px solid #e1e7ef;border-radius:16px}
+.safari-heading h3{margin:0;color:#0E204A;font-size:20px}
+.safari-heading p{margin:5px 0 12px;color:#68788c;font-size:14px;line-height:1.4}
+.safari-session-embed{flex:1;min-height:580px;overflow:hidden;border:1px solid #e1e7ef;border-radius:10px;background:#fff}
+.safari-session-embed iframe{display:block;width:100%;height:100%;min-height:580px;border:0;background:#fff}
+@media(max-width:850px){
+ .session-workspace{grid-template-columns:1fr}
+ .session-left{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,.8fr)}
+ .session-safari{min-height:600px}
+ .safari-session-embed,.safari-session-embed iframe{min-height:500px}
+}
+@media(max-width:560px){
+ .session-left{display:flex;flex-direction:column}
+ .session-info{align-items:center;text-align:center}
+ .session-safari{padding:14px;min-height:540px}
+ .safari-session-embed,.safari-session-embed iframe{min-height:460px}
+}
