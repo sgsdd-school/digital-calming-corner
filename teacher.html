@@ -42,12 +42,14 @@
 
       <section id="session-tab" class="panel tab-panel">
         <div class="section-heading"><div><h2>Classroom session</h2><p>Start a session and let students join using the QR code.</p></div><span id="session-status" class="status-pill">No active session</span></div>
-        <div id="no-session">
-          <button class="primary-button" id="start-session" type="button">Start a new session</button>
-        </div>
-        <div id="active-session" hidden>
-          <div class="session-workspace">
-            <div class="session-left">
+        <div class="session-workspace">
+          <div class="session-left">
+            <div id="no-session" class="session-start-panel">
+              <p class="eyebrow">READY WHEN YOU ARE</p>
+              <p>Students can explore Shy Safari while you prepare the session.</p>
+              <button class="primary-button" id="start-session" type="button">Start a new session</button>
+            </div>
+            <div id="active-session" hidden>
               <div class="qr-panel">
                 <p class="eyebrow">STUDENTS SCAN TO JOIN</p>
                 <div id="session-qr" class="qr-code" aria-label="Session QR code"></div>
@@ -61,16 +63,16 @@
                 <button class="danger-button" id="end-session" type="button">End session</button>
               </div>
             </div>
-            <aside class="session-safari">
-              <div class="safari-heading">
-                <h3>Shy Safari</h3>
-                <p>While everyone joins, quietly explore Shy Safari.</p>
-              </div>
-              <div class="safari-session-embed">
-                <iframe title="Shy Safari activity" src="https://www.shysafari.com/" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="microphone; fullscreen" allowfullscreen></iframe>
-              </div>
-            </aside>
           </div>
+          <aside class="session-safari">
+            <div class="safari-heading">
+              <h3>Shy Safari</h3>
+              <p>Explore Shy Safari while everyone gets ready.</p>
+            </div>
+            <div class="safari-session-embed">
+              <iframe title="Shy Safari activity" src="https://www.shysafari.com/" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="microphone; fullscreen" allowfullscreen></iframe>
+            </div>
+          </aside>
         </div>
         <p id="session-message" class="message" role="status" aria-live="polite"></p>
         <p class="teacher-footer">Session data is temporary and is deleted when you end the session.</p>
