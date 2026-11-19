@@ -168,3 +168,18 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
  .header-app-link{font-size:11px;padding:8px 9px}
  .header-sign-out{font-size:12px}
 }
+
+
+/* Book library: compact cards that leave room for a growing collection */
+.book-library-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 0 14px}
+.book-library-heading h3{margin:0 0 4px;font-size:18px;color:#2b4058}
+.book-library-heading p{margin:0;color:#64748b;font-size:13px;line-height:1.45}
+.library-count{flex:none;border-radius:999px;background:#eaf1f7;color:#245b83;padding:6px 11px;font-size:12px;font-weight:750}
+.book-library-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(245px,1fr));gap:14px;align-items:start}
+.book-library-grid .featured-book{display:flex;flex-direction:column;align-items:stretch;gap:10px;padding:12px;min-width:0}
+.book-library-grid .featured-book h3{font-size:16px}
+.book-library-grid .featured-book p{font-size:12px;margin-bottom:7px}
+.book-library-grid .book-embed-wrap{height:210px;min-height:0}
+.book-library-grid .resource-link{font-size:12px}
+@media(max-width:650px){.book-library-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.book-library-grid .featured-book{padding:9px}.book-library-grid .book-embed-wrap{height:180px}.book-library-heading h3{font-size:16px}}
+@media(max-width:390px){.book-library-grid{grid-template-columns:1fr}.book-library-grid .book-embed-wrap{height:210px}}
