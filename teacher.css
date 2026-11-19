@@ -141,9 +141,9 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 }
 
 
-/* Force the larger Shy Safari viewport and avoid stale cached dashboard CSS */
-.session-safari .safari-session-embed{height:620px!important;min-height:620px!important;flex:none!important}
-.session-safari .safari-session-embed iframe{height:100%!important;min-height:620px!important}
+/* Fit Shy Safari more comfortably within a laptop screen */
+.session-safari .safari-session-embed{height:544px!important;min-height:544px!important;flex:none!important}
+.session-safari .safari-session-embed iframe{height:100%!important;min-height:544px!important}
 @media(max-width:850px){
  .session-safari .safari-session-embed{height:62vh!important;min-height:420px!important}
  .session-safari .safari-session-embed iframe{min-height:100%!important}
