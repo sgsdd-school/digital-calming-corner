@@ -280,3 +280,5 @@
 
 
 .teacher-entry{padding:18px 12px 8px;text-align:center}.teacher-entry a{color:#68788c;font-size:12px;text-decoration:none}.teacher-entry a:hover,.teacher-entry a:focus-visible{color:#245b83;text-decoration:underline}
+
+.student-language-switch{display:flex;justify-content:flex-end;gap:6px;margin:0 0 10px}.student-language-switch button{border:1px solid #d7e0ea;border-radius:999px;background:#fff;color:#0E204A;padding:7px 12px;font:600 13px Arial,sans-serif;cursor:pointer}.student-language-switch button[aria-pressed="true"]{background:#0E204A;color:#fff;border-color:#0E204A}@media(max-width:700px){.student-language-switch{justify-content:center}.student-language-switch button{padding:8px 13px}}
