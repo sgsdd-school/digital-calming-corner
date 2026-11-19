@@ -151,3 +151,20 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 @media(max-width:560px){
  .session-safari .safari-session-embed{height:58vh!important;min-height:360px!important}
 }
+
+
+/* Compact dashboard top bar */
+.teacher-shell{padding-top:8px}
+.teacher-header{min-height:40px;padding:0 0 12px;gap:12px}
+.brand{font-size:17px;line-height:1.2;white-space:nowrap}
+.header-actions{flex-direction:row;align-items:center;justify-content:flex-end;gap:12px}
+.header-app-link{order:1;padding:8px 12px;font-size:12px}
+.header-sign-out{order:2;margin:0;padding:7px 0;font-size:13px}
+@media(max-width:650px){
+ .teacher-shell{width:calc(100% - 28px);padding-top:7px}
+ .teacher-header{min-height:38px;padding-bottom:10px;gap:8px}
+ .brand{font-size:15px}
+ .header-actions{gap:9px}
+ .header-app-link{font-size:11px;padding:8px 9px}
+ .header-sign-out{font-size:12px}
+}
