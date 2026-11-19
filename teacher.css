@@ -139,3 +139,15 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
 @media(max-width:560px){
  .safari-session-embed{height:58vh;min-height:360px}
 }
+
+
+/* Force the larger Shy Safari viewport and avoid stale cached dashboard CSS */
+.session-safari .safari-session-embed{height:620px!important;min-height:620px!important;flex:none!important}
+.session-safari .safari-session-embed iframe{height:100%!important;min-height:620px!important}
+@media(max-width:850px){
+ .session-safari .safari-session-embed{height:62vh!important;min-height:420px!important}
+ .session-safari .safari-session-embed iframe{min-height:100%!important}
+}
+@media(max-width:560px){
+ .session-safari .safari-session-embed{height:58vh!important;min-height:360px!important}
+}
