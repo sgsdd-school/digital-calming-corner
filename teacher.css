@@ -108,3 +108,5 @@ body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;ba
  .session-safari{padding:14px}
  .safari-session-embed{height:55vh;min-height:360px}
 }
+
+.session-left #active-session[hidden]{display:none!important}
