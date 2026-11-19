@@ -46,19 +46,30 @@
           <button class="primary-button" id="start-session" type="button">Start a new session</button>
         </div>
         <div id="active-session" hidden>
-          <div class="session-grid">
-            <div class="qr-panel">
-              <p class="eyebrow">STUDENTS SCAN TO JOIN</p>
-              <div id="session-qr" class="qr-code" aria-label="Session QR code"></div>
-              <p class="small-note">Keep this page open while students join.</p>
-              <button class="secondary-button" id="fullscreen-qr" type="button">Show QR code full screen</button>
+          <div class="session-workspace">
+            <div class="session-left">
+              <div class="qr-panel">
+                <p class="eyebrow">STUDENTS SCAN TO JOIN</p>
+                <div id="session-qr" class="qr-code" aria-label="Session QR code"></div>
+                <p class="small-note">Keep this page open while students join.</p>
+                <button class="secondary-button" id="fullscreen-qr" type="button">Show QR code full screen</button>
+              </div>
+              <div class="session-info">
+                <p class="eyebrow">PARTICIPATION</p>
+                <strong id="participant-total" class="participant-total">0</strong>
+                <span>students have checked in</span>
+                <button class="danger-button" id="end-session" type="button">End session</button>
+              </div>
             </div>
-            <div class="session-info">
-              <p class="eyebrow">PARTICIPATION</p>
-              <strong id="participant-total" class="participant-total">0</strong>
-              <span>students have checked in</span>
-              <button class="danger-button" id="end-session" type="button">End session</button>
-            </div>
+            <aside class="session-safari">
+              <div class="safari-heading">
+                <h3>Shy Safari</h3>
+                <p>While everyone joins, quietly explore Shy Safari.</p>
+              </div>
+              <div class="safari-session-embed">
+                <iframe title="Shy Safari activity" src="https://www.shysafari.com/" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="microphone; fullscreen" allowfullscreen></iframe>
+              </div>
+            </aside>
           </div>
         </div>
         <p id="session-message" class="message" role="status" aria-live="polite"></p>
